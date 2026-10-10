@@ -163,7 +163,7 @@ function heroSvg({ W = 1280, H = 400, social = false }) {
     contextMax: 1000000,
     ...o,
   })
-  const a1 = agentSvg(aW, mkRun({ id: 'a', description: 'Replica recon', status: 'running', contextTokens: 340000, tokens: 612000, steps: 14 }), 0, 0)
+  const a1 = agentSvg(aW, mkRun({ id: 'a', description: 'Refactor auth', status: 'running', contextTokens: 340000, tokens: 612000, steps: 14 }), 0, 0)
   const a2 = agentSvg(aW, mkRun({ id: 'b', description: 'Write README', status: 'done', endedAt: 30000, contextTokens: 180000, tokens: 240000, steps: 6 }), 0, 0)
 
   const stackH = monitor.H + 14 + 100
@@ -276,8 +276,8 @@ still('monitor-narrow.svg', {
   task: { title: 'Ship the redesign', done: 3, total: 5, current: 'Test responsive', isFinished: false },
   agents: {
     rows: [
-      { name: 'Replica recon Atlassian', status: 'running', ctx: 34 },
-      { name: 'Fix contrast tokens', status: 'running', ctx: 71 },
+      { name: 'Refactor auth module', status: 'running', ctx: 34 },
+      { name: 'Fix flaky tests', status: 'running', ctx: 71 },
     ],
     working: 2,
     more: 1,
@@ -286,8 +286,8 @@ still('monitor-narrow.svg', {
 
 const mk = (o) => ({ type: 'deep-fixer', model: 'claude-opus-5-5', effort: 'high', startedAt: -90000, contextMax: 1000000, ...o })
 const list = [
-  mk({ id: '1', description: 'Replica recon Atlassian', status: 'running', contextTokens: 340000, tokens: 612000, steps: 14 }),
-  mk({ id: '2', description: 'Fix contrast tokens', status: 'running', contextTokens: 710000, tokens: 902000, steps: 22 }),
+  mk({ id: '1', description: 'Refactor auth module', status: 'running', contextTokens: 340000, tokens: 612000, steps: 14 }),
+  mk({ id: '2', description: 'Fix flaky tests', status: 'running', contextTokens: 710000, tokens: 902000, steps: 22 }),
   mk({ id: '3', description: 'Write README', status: 'done', endedAt: 30000, contextTokens: 180000, tokens: 240000, steps: 6 }),
 ]
 write(outMod, 'agents-0.svg', statsSvg(520, list, 0))
@@ -297,9 +297,9 @@ write(outMod, 'agents-3.svg', agentSvg(520, list[2], 0, 0))
 
 // All sessions, as the side panel lists them.
 const sess = [
-  { id: 's1', pid: 1, name: 'Claude mod and skins', project: 'claude-mods', entry: 'desktop', status: 'busy', updatedAt: -4000, startedAt: 0, isSelf: true },
-  { id: 's2', pid: 2, name: 'Service Desk replica architecture', project: 'Service Desk', entry: 'desktop', status: 'busy', updatedAt: -12000, startedAt: 0, isSelf: false },
-  { id: 's3', pid: 3, name: 'Padelbor community features', project: 'padelbor', entry: 'cli', status: 'idle', updatedAt: -240000, startedAt: 0, isSelf: false },
+  { id: 's1', pid: 1, name: 'Mod redesign', project: 'claude-mods', entry: 'desktop', status: 'busy', updatedAt: -4000, startedAt: 0, isSelf: true },
+  { id: 's2', pid: 2, name: 'API migration', project: 'api', entry: 'desktop', status: 'busy', updatedAt: -12000, startedAt: 0, isSelf: false },
+  { id: 's3', pid: 3, name: 'Docs site', project: 'docs', entry: 'cli', status: 'idle', updatedAt: -240000, startedAt: 0, isSelf: false },
 ]
 const SW = 520
 const parts = []

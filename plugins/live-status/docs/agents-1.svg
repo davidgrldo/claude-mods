@@ -25,7 +25,7 @@
 </defs>
 <rect class="card" x=".5" y=".5" width="519" height="99" rx="12"/>
 <circle class="dot-run" cx="19" cy="25" r="4"/>
-<text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Replica recon Atlassian</text>
+<text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Refactor auth module</text>
 <rect class="lz-run" x="439" y="17" width="67" height="17" rx="8.5"/>
 <text class="lz-runt" x="472.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
 <rect class="chip" x="34" y="41" width="71" height="16" rx="8"/>

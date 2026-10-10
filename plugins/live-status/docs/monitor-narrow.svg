@@ -77,13 +77,13 @@
 <text class="mu" x="14" y="150" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">AGENTS  ·  2 working  ·  +1 more</text>
 
 <circle class="dot-run" cx="19" cy="169" r="3"/>
-<text class="nm" x="30" y="173" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600">Replica recon Atlassian</text>
+<text class="nm" x="30" y="173" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600">Refactor auth module</text>
 
 <rect class="trk" x="299" y="166" width="67" height="6" rx="3"/>
 <rect x="299" y="166" width="23" height="6" rx="3" fill="url(#gOk)"/>
 <text class="pc" x="406" y="173" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="700" font-variant-numeric="tabular-nums">34%</text>
 <circle class="dot-run" cx="19" cy="191" r="3"/>
-<text class="nm" x="30" y="195" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600">Fix contrast tokens</text>
+<text class="nm" x="30" y="195" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600">Fix flaky tests</text>
 
 <rect class="trk" x="299" y="188" width="67" height="6" rx="3"/>
 <rect x="299" y="188" width="48" height="6" rx="3" fill="url(#gWarn)"/>
