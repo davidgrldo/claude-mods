@@ -1,0 +1,14 @@
+{
+  "name": "live-status",
+  "owner": { "name": "fanoisme" },
+  "metadata": { "description": "live-status: a live monitor mod for Claude Code." },
+  "plugins": [
+    {
+      "name": "live-status",
+      "source": "./",
+      "description": "Live monitor above the prompt: model, effort, context, 5h/7d limits, task progress and a subagents panel.",
+      "version": "0.2.0",
+      "category": "mod"
+    }
+  ]
+}

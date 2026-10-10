@@ -1,0 +1,4 @@
+# Written by Claude Code while a mod loads; never commit.
+.claude-plugin/types/
+tsconfig.json
+node_modules/

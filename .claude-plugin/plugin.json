@@ -1,0 +1,9 @@
+{
+  "name": "live-status",
+  "version": "0.2.0",
+  "description": "A live monitor for Claude Code: model, effort, context, 5h/7d usage limits, task progress and a subagents panel, in one responsive card.",
+  "author": { "name": "fanoisme" },
+  "license": "MIT",
+  "keywords": ["mod", "status", "monitor", "usage", "context", "progress", "subagents"],
+  "types": "./types/index.d.ts"
+}
