@@ -84,8 +84,8 @@ The side panel lists **every live session on your machine**, so you can keep an 
 
 ![Sessions panel](docs/sessions.svg)
 
-Each card shows the task that session is working on, as `3/6 · 50%` with a segmented bar. Progress comes from the `task` tool
-(see *Task progress*): every session that has live-status installed publishes its own task to
+Each card shows the task that session is working on, as `3/6 · 50%` with a segmented bar. Progress comes from the todo list
+Claude keeps (see *Task progress*): every session that has live-status installed publishes its own task to
 `~/.claude/live-status/progress/<session>.json`, and the others read it. A session that reports nothing shows an empty bar and
 the note "no task progress reported", never a made-up percentage.
 
@@ -95,19 +95,20 @@ model and context are not in that registry, so other sessions show status and ac
 
 ## Task progress
 
-Nothing can know in advance how big a task is, so the task bar is driven by a small tool the mod adds:
-`mcp__live-status__task`. Claude calls it when it starts a multi-step task, after each step, and when it is done. If it
-is never called, the bar falls back to **subagents finished out of subagents started**, and with neither the row stays
-hidden and the card stays compact.
+Nothing can know in advance how big a task is, so the task bar reads the **todo list Claude already keeps** (the built-in
+`TodoWrite` tool): `3/5 · 60%` is "3 of the 5 todos are completed", and the step in progress is shown next to it. There is
+nothing to set up and no `CLAUDE.md` snippet to add. If Claude keeps no todo list, the bar falls back to **subagents finished
+out of subagents started**, and with neither the row stays hidden and the card stays compact.
 
-To have Claude report progress on its own, add this to your `CLAUDE.md`:
+## No tokens
 
-```markdown
-## Progress
-For any task with three or more steps, report progress to the live monitor with the `mcp__live-status__task` tool:
-call it once at the start (title, total), after each finished step (done, current = the next step in a few words),
-and once with finished: true at the end.
-```
+The mod never talks to the model. It adds **no tool, no system-prompt text and no instructions**, and it makes no model
+calls: it only watches events the engine already raises and draws what it sees. Concretely:
+
+- The todo list is *observed*: the `TodoWrite` call passes through unchanged, so nothing extra is sent or returned.
+- There is no `task`-style tool whose definition would ride along on every request.
+- Slash commands (`/monitor`, `/agents-live`) answer with a few words, shown once in your transcript.
+- Everything else (the band, the panel, toasts, the status line, the progress files) is drawn locally and costs no tokens.
 
 ## Responsive by design
 

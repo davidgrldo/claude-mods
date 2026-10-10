@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.1
+- Zero tokens: removed the `task` tool the mod used to register (its definition rode along on every request). Task progress now reads the todo list Claude already keeps (`TodoWrite`), observed without changing the call.
+
 ## 0.4.0
 - Every session card shows the real progress of its task (`3/6 · 50%`), published by that session's own `task` reports. Sessions that report nothing show an empty bar and a note instead of a made-up percentage.
 - Session cards no longer draw a freshness bar.

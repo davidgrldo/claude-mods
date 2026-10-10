@@ -20,8 +20,6 @@ const slow = atom({ plugin: 'live-status', key: 'slow' } as const, 0)
 
 const PANE = 'live-agents'
 
-type TaskInput = { title?: string; total?: number; done?: number; current?: string; finished?: boolean }
-
 // What the card shows for the work in hand: the reported task, else the crew.
 type TaskView = { title: string; done: number; total: number; current: string; isFinished: boolean }
 
@@ -592,7 +590,7 @@ const sessionSvg = (W: number, s: SessionRow, at: number, nowMs: number): string
     ? `<rect class="chip" x="${W - PAD - lzW - thisW - 8}" y="${PAD + 4}" width="${thisW}" height="15" rx="7.5"/><text class="chipt" x="${W - PAD - lzW - thisW / 2 - 8}" y="${PAD + 15}" text-anchor="middle" font-family="${FONT}" font-size="9" font-weight="700" letter-spacing=".6">THIS</text>`
     : ''
 
-  // Progress is the task the session reports through the `task` tool. A session that
+  // Progress is the todo list that session keeps. A session that
   // reports none gets an empty bar and a plain note, never an invented percentage.
   const tk = s.task && s.task.total > 0 ? s.task : null
   const pct = tk ? Math.round((tk.done / tk.total) * 100) : 0
@@ -668,24 +666,6 @@ export const register: Register = on => {
     await $.command.register({
       name: 'agents-live',
       description: 'Show or hide the panel of subagents: status, model, context, tokens and time',
-    })
-    await $.tool.register({
-      name: 'task',
-      description:
-        'Report the progress of the task being worked on to the live monitor above the prompt, which draws it as a ' +
-        'segmented bar with a percentage. Call it when a multi-step task starts (title, total), each time a step is ' +
-        'finished (done, current = the next step in a few words), and once with finished: true at the end. ' +
-        'Fields left out keep their previous value. Cheap and silent.',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          title: { type: 'string', description: 'Short name of the task, a few words.' },
-          total: { type: 'integer', minimum: 1, description: 'Number of planned steps.' },
-          done: { type: 'integer', minimum: 0, description: 'Steps finished so far.' },
-          current: { type: 'string', description: 'The step in progress, a few words.' },
-          finished: { type: 'boolean', description: 'True once the whole task is complete.' },
-        },
-      },
     })
     await refresh($)
     const configured = await configuredEffort($)
@@ -776,27 +756,31 @@ export const register: Register = on => {
     return { text: isOpen ? 'Agents panel opened.' : 'Agents panel closed.' }
   })
 
-  on('tool.call', { tool: /^mcp__live-status__task$/ }, async ($, e) => {
-    const input = e as unknown as TaskInput
-    const next = await update($, task, prev => {
-      // A new title, or a task already finished, starts a fresh one.
-      const isNew = !prev || prev.isFinished || (input.title !== undefined && input.title.trim() !== prev.title)
-      const base: Task = isNew ? { title: '', total: 0, done: 0, current: '', isFinished: false } : prev
-      const total = Math.max(0, Math.round(input.total ?? base.total))
-      const done = Math.max(0, Math.min(total || Infinity, Math.round(input.done ?? base.done)))
-      const finished = input.finished === true
-      return {
-        title: input.title?.trim() || base.title,
-        total: finished ? Math.max(total, done) : total,
-        done: finished ? Math.max(total, done) : done,
-        current: input.current !== undefined ? input.current.trim() : base.current,
-        isFinished: finished,
-      }
-    })
+  // Task progress comes from the todo list Claude already keeps (TodoWrite). The call is
+  // only observed and passes through untouched, so this adds no tokens: no tool of our
+  // own in the model's tool list, no extra calls, nothing written to its context.
+  on('tool.call', { tool: 'TodoWrite' }, async ($, e, next) => {
+    const ran = await next(e)
+    if (e.agentId) return ran
+    const todos = (e as unknown as { todos?: { content?: string; status?: string; activeForm?: string }[] }).todos ?? []
+    const total = todos.length
+    const done = todos.filter(t => t.status === 'completed').length
+    const active = todos.find(t => t.status === 'in_progress') ?? todos.find(t => t.status === 'pending')
+    await update($, task, () =>
+      total > 0
+        ? {
+            title: 'Tasks',
+            total,
+            done,
+            current: (active?.activeForm || active?.content || '').trim(),
+            isFinished: done === total,
+          }
+        : null,
+    )
     const at = await $.clock.now()
     await update($, now, () => at)
     await publishProgress($)
-    return { result: next ? `ok: ${next.done}/${next.total}` : 'ok' }
+    return ran
   })
 
   on('turn.start', async ($, e, next) => {
