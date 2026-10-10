@@ -14,7 +14,7 @@ const task = atom({ plugin: 'live-status', key: 'task' } as const, null)
 const crew = atom({ plugin: 'live-status', key: 'crew' } as const, { spawned: 0, done: 0 })
 const runs = atom({ plugin: 'live-status', key: 'runs' } as const, [])
 const sessions = atom({ plugin: 'live-status', key: 'sessions' } as const, [])
-const panel = atom({ plugin: 'live-status', key: 'panel' } as const, { isCompact: false, isDoneCollapsed: false })
+const panel = atom({ plugin: 'live-status', key: 'panel' } as const, { isCompact: false, isDoneCollapsed: true })
 const now = atom({ plugin: 'live-status', key: 'now' } as const, 0)
 
 const PANE = 'live-agents'
@@ -879,7 +879,7 @@ export const register: Register = on => {
           {!p.isCompact && running.length > 0 && <Text dimColor>Working · {running.length}</Text>}
           {!p.isCompact && running.map(card)}
           {!p.isCompact && finished.length > 0 && toggleDone}
-          {!p.isCompact && !p.isDoneCollapsed && finished.map(card)}
+          {!p.isCompact && !p.isDoneCollapsed && finished.slice(0, 8).map(card)}
         </Box>
       )
     }
@@ -943,7 +943,7 @@ export const register: Register = on => {
         {list.length === 0 && <Text dimColor>No subagents yet.</Text>}
         {!p.isCompact && running.map(row)}
         {!p.isCompact && finished.length > 0 && toggleDone}
-        {!p.isCompact && !p.isDoneCollapsed && finished.map(row)}
+        {!p.isCompact && !p.isDoneCollapsed && finished.slice(0, 8).map(row)}
       </Box>
     )
   })

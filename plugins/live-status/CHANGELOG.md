@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.2
+- Finished subagents are collapsed by default; opening them shows the latest eight.
+
 ## 0.3.1
 - Side panel split into two sections, Sessions and Subagents, each with an overview progress bar.
 - Every session card has a progress bar: a sweep while it works, a draining bar while it is idle.
