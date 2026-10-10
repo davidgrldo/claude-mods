@@ -1,0 +1,1 @@
+{ "name": "hello-mod", "version": "0.1.0", "description": "Template mod: a slash command that shows a toast and a status line entry.", "author": { "name": "fanoisme" }, "license": "MIT" }

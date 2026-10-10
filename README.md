@@ -1,130 +1,75 @@
-# live-status
+# claude-mods
 
-A live monitor for [Claude Code](https://claude.com/claude-code), drawn above the prompt. One responsive card shows what
-the session is doing right now: **model and effort, context, 5-hour and 7-day usage limits, cost, the task in
-progress, and your subagents.** A matching panel lists every subagent with its own context bar.
+Mods for [Claude Code](https://claude.com/claude-code): live panes, bands above the prompt, status lines, toasts and
+hooks, each one a small plugin you install with a single line. This repository is one marketplace; every mod lives in its
+own folder under [`plugins/`](plugins).
 
-![Monitor while a turn is running](docs/monitor.svg)
+## Mods
 
-<details>
-<summary>More screenshots</summary>
-
-Idle, light and dark follow your system theme:
-
-![Monitor, idle](docs/monitor-idle.svg)
-
-A narrow window stacks the card and lists subagents inline, so nothing is lost when there is no room for the panel:
-
-![Monitor in a narrow window](docs/monitor-narrow.svg)
-
-The agents panel (`/monitor`, or `/agents-live`):
-
-![Agents panel summary](docs/agents-0.svg)
-![A working subagent](docs/agents-1.svg)
-![A finished subagent](docs/agents-3.svg)
-
-</details>
-
-## Install
-
-In a Claude Code terminal session:
-
-```
-/plugin install live-status --marketplace fanoisme/claude-live-status
-```
-
-Answer `y` to add the marketplace, then pick the **user** scope. The mod is active at once and in every session you start
-afterwards. If you use the Claude desktop app, install it once from a terminal at the user scope: the Code tab loads it
-too (the `/plugin` command itself is a terminal command).
-
-Prefer to try it first without installing? Clone the repo and run:
-
-```
-claude --plugin-dir ./claude-live-status
-```
-
-To remove it: `/plugin uninstall live-status`.
-
-## What you get
-
-| Part | Shows | Updates |
+| Mod | What it does | Install |
 | --- | --- | --- |
-| **Model chip** | Model name and effort (`Opus 5.5 · high`) | Every model request |
-| **Context** | Fill, tokens used of the window, `HIGH` from 60%, `CRITICAL` from 85% | As the engine reports it, and every 5 s mid-turn |
-| **5H / 7D limits** | Usage of each window and when it resets | As the engine reports it; countdowns refresh every 15 s when idle |
-| **Cost** | Session cost so far | As the engine reports it |
-| **Status** | `WORKING` / `IDLE`, elapsed time, steps, tool calls, running agents | Every second while a turn runs |
-| **Task bar** | Progress of the task being worked on, `3/5 · 60%`, segmented per step | When the task is reported (see below) |
-| **Agents** | One row per subagent, inline when there is no room for the panel | Live |
-| **Agents panel** | Summary tiles plus a card per subagent: status, type, model, effort, time, tokens, steps, context bar | Live |
+| [**live-status**](plugins/live-status) | A live monitor above the prompt: model, effort, context, 5h/7d usage limits, cost, task progress and a subagents panel. Responsive, light and dark. | `/plugin install live-status --marketplace fanoisme/claude-mods` |
 
-Level is never shown by color alone: the words `HIGH` and `CRITICAL` sit next to the bar. A toast appears once when
-context or a limit crosses 85%, and again at 95%.
+![live-status](plugins/live-status/docs/monitor.svg)
 
-The 5H and 7D limits are reported only for accounts whose plan has them; without a reading the card says so instead of
-guessing. Subagents show **tokens, time and context, not dollars**: the engine reports tokens, not money.
+More will land here. Each mod has its own README with screenshots, commands and options.
 
-### Commands
+## Install a mod
 
-| Command | Does |
-| --- | --- |
-| `/monitor` | Shows or hides everything: the band above the prompt and the agents panel together |
-| `/monitor on` · `/monitor off` | Forces it on or off |
-| `/agents-live` | Toggles only the agents panel |
-
-The agents panel opens by itself at session start, and the band is on from the first moment.
-
-## Task progress
-
-Nothing can know in advance how big a task is, so the task bar is driven by a small tool the mod adds:
-`mcp__live-status__task`. Claude calls it when it starts a multi-step task, after each step, and when it is done. If it
-is never called, the bar falls back to **subagents finished out of subagents started**, and with neither the row stays
-hidden and the card stays compact.
-
-To have Claude report progress on its own, add this to your `CLAUDE.md`:
-
-```markdown
-## Progress
-For any task with three or more steps, report progress to the live monitor with the `mcp__live-status__task` tool:
-call it once at the start (title, total), after each finished step (done, current = the next step in a few words),
-and once with finished: true at the end.
-```
-
-## Responsive by design
-
-| Window | What changes |
-| --- | --- |
-| Wide | One row of model, three gauges and the task bar; the agents panel docks beside the transcript |
-| Under 520 px | The card stacks into two rows of gauges |
-| No room for the panel (under 144 columns, or the panel is closed) | Up to three subagents are listed inline in the band, two when very narrow |
-| Terminal | The same figures as colored text rows, no images |
-
-Motion is limited to a slow sheen on the context and task bars and a travelling highlight on the bottom rail, only while
-a turn is running. It stops under `prefers-reduced-motion`, and light and dark follow the system theme.
-
-## Customize
-
-All colors and sizes are plain constants at the top of [`hooks/register.tsx`](hooks/register.tsx): the `CSS` string for
-the card and lozenges, the `<linearGradient>` stops for the bars, and `tone()` for the terminal palette. Edit, then
-reinstall or reload.
-
-## Develop
+In a Claude Code terminal session, one line per mod:
 
 ```
-git clone https://github.com/fanoisme/claude-live-status
-claude --plugin-dir ./claude-live-status     # loads the mod from the folder
-claude plugin validate ./claude-live-status  # manifest + hooks check
-npx -p typescript tsc -p ./claude-live-status --noEmit   # after the mod has loaded once
+/plugin install <mod> --marketplace fanoisme/claude-mods
 ```
 
-While a mod loads, Claude Code writes its API types into `.claude-plugin/types/`, which is what `tsc` reads (and why that
-folder is git-ignored). The mod keeps its values in `$.state`, declared in [`types/index.d.ts`](types/index.d.ts).
+Answer `y` to add the marketplace the first time, then choose the **user** scope. The mod is active right away and in
+every session you start afterwards. Using the Claude desktop app? Install from a terminal once at the user scope, and the
+Code tab loads it too (the `/plugin` command itself is a terminal command).
 
-## Compatibility
+Browse everything in the marketplace with `/plugin marketplace add fanoisme/claude-mods`, then `/plugin`.
 
-Written against the Claude Code mod API of build 2.1.293 (`session.measure`, `turn.step`, `agent.spawn`, `ui.render`).
-The desktop app draws the card as SVG; the terminal draws text. If a later build renames an event, `claude plugin validate`
-will say which one.
+To try a mod without installing it, clone the repo and point Claude Code at its folder:
+
+```
+git clone https://github.com/fanoisme/claude-mods
+claude --plugin-dir ./claude-mods/plugins/live-status
+```
+
+Remove one with `/plugin uninstall <mod>`.
+
+## Add a mod to this repo
+
+Every mod is a folder under `plugins/` with three files and an optional fourth:
+
+```
+plugins/<mod>/
+  .claude-plugin/plugin.json   name, version, description (and "types" if the mod keeps state)
+  hooks/hooks.json             { "modules": ["./register.tsx"] }
+  hooks/register.tsx           export const register: Register = (on, options) => { ... }
+  types/index.d.ts             only when the mod stores values in $.state
+  README.md                    what it is, a screenshot, commands, options
+```
+
+The quickest start is the [`template/hello-mod`](template/hello-mod) folder:
+
+```
+cp -r template/hello-mod plugins/my-mod    # then rename "hello-mod" inside plugin.json
+```
+
+Then register it in [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json):
+
+```json
+{ "name": "my-mod", "source": "./plugins/my-mod", "description": "One line.", "version": "0.1.0", "category": "mod" }
+```
+
+Check everything before you push:
+
+```
+./scripts/validate.sh           # validates the marketplace and every mod
+```
+
+Mods are written against the Claude Code mod API; while a mod loads, Claude Code writes the API's types into the mod's
+`.claude-plugin/types/` (git-ignored), so `npx -p typescript tsc -p plugins/<mod> --noEmit` type-checks it.
 
 ## License
 
