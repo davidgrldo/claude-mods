@@ -15,7 +15,7 @@
 .lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
 .lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
-.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes sa{0%{transform:translateX(-30px)}100%{transform:translateX(167px)}}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -35,5 +35,4 @@
 <text class="pc" x="506" y="70" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="700" font-variant-numeric="tabular-nums">34%  <tspan class="mu" font-weight="500">340k of 1.0M</tspan></text>
 <rect class="trk" x="14" y="76" width="492" height="6" rx="3"/>
 <rect x="14" y="76" width="167" height="6" rx="3" fill="url(#gOk)"/>
-<clipPath id="ca"><rect x="14" y="76" width="167" height="6" rx="3"/></clipPath>
-<g clip-path="url(#ca)"><rect x="14" y="76" width="30" height="6" fill="url(#gSheen)" style="animation:sa 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g></svg>
+</svg>

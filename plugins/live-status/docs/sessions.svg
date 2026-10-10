@@ -45,7 +45,7 @@
 .lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
 .lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
-.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes ss_s0{0%{transform:translateX(-148px)}100%{transform:translateX(492px)}}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_s0" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_s0" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -61,8 +61,7 @@
 <text class="lz-runt" x="472.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
 <text class="mu" x="34" y="52" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-variant-numeric="tabular-nums">desktop · claude-mods · 4s ago</text>
 <rect class="trk" x="14" y="56" width="492" height="6" rx="3"/>
-<clipPath id="sc_s0"><rect x="14" y="56" width="492" height="6" rx="3"/></clipPath>
-<g clip-path="url(#sc_s0)"><rect x="14" y="56" width="148" height="6" rx="3" fill="url(#gOk_s0)" style="animation:ss_s0 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g></svg>
+<rect x="14" y="56" width="491" height="6" rx="3" fill="url(#gOk_s0)"/></svg>
 <svg x="0" y="130" width="520" height="76" viewBox="0 0 520 76"><style>
 .card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
 .trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
@@ -80,7 +79,7 @@
 .lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
 .lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
-.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes ss_s1{0%{transform:translateX(-148px)}100%{transform:translateX(492px)}}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_s1" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_s1" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -96,8 +95,7 @@
 <text class="lz-runt" x="472.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
 <text class="mu" x="34" y="52" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-variant-numeric="tabular-nums">desktop · api · 12s ago</text>
 <rect class="trk" x="14" y="56" width="492" height="6" rx="3"/>
-<clipPath id="sc_s1"><rect x="14" y="56" width="492" height="6" rx="3"/></clipPath>
-<g clip-path="url(#sc_s1)"><rect x="14" y="56" width="148" height="6" rx="3" fill="url(#gOk_s1)" style="animation:ss_s1 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g></svg>
+<rect x="14" y="56" width="489" height="6" rx="3" fill="url(#gOk_s1)"/></svg>
 <svg x="0" y="214" width="520" height="76" viewBox="0 0 520 76"><style>
 .card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
 .trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
@@ -178,7 +176,7 @@
 .lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
 .lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
-.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes sa_g0{0%{transform:translateX(-30px)}100%{transform:translateX(167px)}}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_g0" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_g0" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -198,8 +196,7 @@
 <text class="pc" x="506" y="70" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="700" font-variant-numeric="tabular-nums">34%  <tspan class="mu" font-weight="500">340k of 1.0M</tspan></text>
 <rect class="trk" x="14" y="76" width="492" height="6" rx="3"/>
 <rect x="14" y="76" width="167" height="6" rx="3" fill="url(#gOk_g0)"/>
-<clipPath id="ca_g0"><rect x="14" y="76" width="167" height="6" rx="3"/></clipPath>
-<g clip-path="url(#ca_g0)"><rect x="14" y="76" width="30" height="6" fill="url(#gSheen_g0)" style="animation:sa_g0 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g></svg>
+</svg>
 <svg x="0" y="452" width="520" height="100" viewBox="0 0 520 100"><style>
 .card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
 .trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
@@ -217,7 +214,7 @@
 .lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
 .lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
-.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes sa_g1{0%{transform:translateX(-30px)}100%{transform:translateX(349px)}}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_g1" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_g1" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -237,8 +234,7 @@
 <text class="pc" x="506" y="70" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="700" font-variant-numeric="tabular-nums">71%  <tspan class="mu" font-weight="500">710k of 1.0M</tspan></text>
 <rect class="trk" x="14" y="76" width="492" height="6" rx="3"/>
 <rect x="14" y="76" width="349" height="6" rx="3" fill="url(#gWarn_g1)"/>
-<clipPath id="ca_g1"><rect x="14" y="76" width="349" height="6" rx="3"/></clipPath>
-<g clip-path="url(#ca_g1)"><rect x="14" y="76" width="30" height="6" fill="url(#gSheen_g1)" style="animation:sa_g1 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g></svg>
+</svg>
 <svg x="0" y="560" width="520" height="100" viewBox="0 0 520 100"><style>
 .card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
 .trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}

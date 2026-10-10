@@ -414,13 +414,8 @@ const agentSvg = (W: number, a: Run, at: number, nowMs: number): string => {
   const lvl = ctx >= 85 ? 'CRITICAL' : ctx >= 60 ? 'HIGH' : ''
   const grad = ctx >= 85 ? 'gBad' : ctx >= 60 ? 'gWarn' : 'gOk'
   const dot = a.status === 'running' ? 'dot-run' : a.status === 'done' ? 'dot-ok' : 'lv-bad'
-  let sheen = ''
-  let kf = ''
-  if (a.status === 'running' && fillW > 16) {
-    kf = `@keyframes sa{0%{transform:translateX(-30px)}100%{transform:translateX(${fillW}px)}}`
-    sheen = `<clipPath id="ca"><rect x="${PAD}" y="${H - 24}" width="${fillW}" height="6" rx="3"/></clipPath>
-<g clip-path="url(#ca)"><rect x="${PAD}" y="${H - 24}" width="30" height="6" fill="url(#gSheen)" style="animation:sa 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-${((nowMs % 1600) / 1000).toFixed(2)}s"/></g>`
-  }
+  const sheen = ''
+  const kf = ''
   const body = `
 <rect class="card" x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="12"/>
 <circle class="${dot}" cx="${PAD + 5}" cy="${PAD + 11}" r="4"/>
@@ -522,20 +517,15 @@ const sessionSvg = (W: number, s: SessionRow, at: number, nowMs: number): string
   const thisChip = s.isSelf
     ? `<rect class="chip" x="${W - PAD - lzW - thisW - 8}" y="${PAD + 4}" width="${thisW}" height="15" rx="7.5"/><text class="chipt" x="${W - PAD - lzW - thisW / 2 - 8}" y="${PAD + 15}" text-anchor="middle" font-family="${FONT}" font-size="9" font-weight="700" letter-spacing=".6">THIS</text>`
     : ''
-  // Progress: nobody knows how big another session's task is, so a working session
-  // gets an indeterminate sweep, and an idle one a bar that drains as it stays quiet.
+  // Progress: nobody knows how big another session's task is, so the bar shows how
+  // fresh its last activity is (full right after an update, empty after 30 minutes).
+  // Static on purpose: the panel redraws often and should stay light.
   const barW = W - PAD * 2
   const barY = H - 20
-  const idleMs = Math.max(0, at - s.updatedAt)
-  const fillW = busy ? 0 : Math.max(0, Math.round(barW * (1 - Math.min(1, idleMs / ATTENTION_MS))))
-  const seg = Math.round(barW * 0.3)
-  const bar = busy
-    ? `<clipPath id="sc"><rect x="${PAD}" y="${barY}" width="${barW}" height="6" rx="3"/></clipPath>
-<g clip-path="url(#sc)"><rect x="${PAD}" y="${barY}" width="${seg}" height="6" rx="3" fill="url(#gOk)" style="animation:ss 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-${((nowMs % 1800) / 1000).toFixed(2)}s"/></g>`
-    : fillW > 0
-      ? `<rect x="${PAD}" y="${barY}" width="${Math.max(5, fillW)}" height="6" rx="3" fill="url(#${attention ? 'gOk' : 'gDone'})"/>`
-      : ''
-  const kf = busy ? `@keyframes ss{0%{transform:translateX(${-seg}px)}100%{transform:translateX(${barW}px)}}` : ''
+  const ageMs = Math.max(0, at - s.updatedAt)
+  const fillW = Math.max(0, Math.round(barW * (1 - Math.min(1, ageMs / ATTENTION_MS))))
+  const bar = fillW > 0 ? `<rect x="${PAD}" y="${barY}" width="${Math.max(5, fillW)}" height="6" rx="3" fill="url(#${busy || attention ? 'gOk' : 'gDone'})"/>` : ''
+  const kf = ''
   const body = `
 <rect class="card" x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="12"${s.isSelf ? ' style="stroke:#FFBC25"' : ''}/>
 <circle class="${busy ? 'dot-run' : 'dot-ok'}" cx="${PAD + 5}" cy="${PAD + 11}" r="4"/>

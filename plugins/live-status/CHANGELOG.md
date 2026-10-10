@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.4
+- Side panel is static: plain progress bars, no sweeping or shimmer animation, so it stays light. (The band above the prompt keeps its motion while a turn runs.)
+- Session bars show how fresh the last activity is.
+
 ## 0.3.3
 - Sessions idle for more than 30 minutes are hidden. A session that went idle more recently (most likely waiting for you) stays, marked `NEEDS YOU`.
 
