@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/hero.svg" alt="claude-mods: mods for Claude Code" width="100%"></p>
+
 # claude-mods
 
 Mods for [Claude Code](https://claude.com/claude-code): live panes, bands above the prompt, status lines, toasts and

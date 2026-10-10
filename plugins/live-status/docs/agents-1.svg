@@ -34,4 +34,4 @@
 <rect class="trk" x="14" y="76" width="492" height="6" rx="3"/>
 <rect x="14" y="76" width="167" height="6" rx="3" fill="url(#gOk)"/>
 <clipPath id="ca"><rect x="14" y="76" width="167" height="6" rx="3"/></clipPath>
-<g clip-path="url(#ca)"><rect x="14" y="76" width="30" height="6" fill="url(#gSheen)" style="animation:sa 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-1.14s"/></g></svg>
+<g clip-path="url(#ca)"><rect x="14" y="76" width="30" height="6" fill="url(#gSheen)" style="animation:sa 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g></svg>

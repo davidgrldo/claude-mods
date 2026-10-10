@@ -6,7 +6,7 @@ A live monitor for [Claude Code](https://claude.com/claude-code), drawn above th
 the session is doing right now: **model and effort, context, 5-hour and 7-day usage limits, cost, the task in
 progress, and your subagents.** A matching panel lists every subagent with its own context bar.
 
-![Monitor while a turn is running](docs/monitor.svg)
+![The monitor through a whole turn](docs/demo.svg)
 
 <details>
 <summary>More screenshots</summary>

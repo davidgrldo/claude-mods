@@ -28,7 +28,7 @@
 <text class="lz-okt" x="483.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">DONE</text>
 <rect class="chip" x="34" y="41" width="71" height="16" rx="8"/>
 <text class="chipt" x="69.5" y="52.5" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-weight="600">deep-fixer</text>
-<text class="mu" x="113" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-variant-numeric="tabular-nums">Opus 5.5  ·  high  ·  1:10  ·  240k tok  ·  6 steps</text>
+<text class="mu" x="113" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-variant-numeric="tabular-nums">Opus 5.5  ·  high  ·  2:00  ·  240k tok  ·  6 steps</text>
 <text class="mu" x="14" y="70" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
 <text class="pc" x="506" y="70" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="700" font-variant-numeric="tabular-nums">18%  <tspan class="mu" font-weight="500">180k of 1.0M</tspan></text>
 <rect class="trk" x="14" y="76" width="492" height="6" rx="3"/>

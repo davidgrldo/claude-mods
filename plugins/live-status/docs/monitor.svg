@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="108" viewBox="0 0 760 108">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="76" viewBox="0 0 760 76">
 <style>
 .card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
 .trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
@@ -13,7 +13,6 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 @keyframes sh0{0%{transform:translateX(-30px)}100%{transform:translateX(54px)}}
-@keyframes sht{0%{transform:translateX(-36px)}100%{transform:translateX(439px)}}
 @keyframes rl{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
 <defs>
@@ -25,7 +24,7 @@
 <linearGradient id="gSheen" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
 <linearGradient id="gRail" x1="0" x2="1"><stop offset="0" stop-color="#FFA500" stop-opacity="0"/><stop offset=".5" stop-color="#FFA500"/><stop offset="1" stop-color="#FFBC25" stop-opacity="0"/></linearGradient>
 </defs>
-<rect class="card" x=".5" y=".5" width="759" height="107" rx="12"/>
+<rect class="card" x=".5" y=".5" width="759" height="75" rx="12"/>
 
 <g>
   <circle class="dot-run" cx="19" cy="25" r="4"/>
@@ -44,7 +43,7 @@
   <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
   <rect x="325" y="33" width="54" height="6" rx="3" fill="url(#gOk)"/>
   <clipPath id="cl0"><rect x="325" y="33" width="54" height="6" rx="3"/></clipPath>
-<g clip-path="url(#cl0)"><rect x="325" y="33" width="30" height="6" fill="url(#gSheen)" style="animation:sh0 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-1.14s"/></g><rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+<g clip-path="url(#cl0)"><rect x="325" y="33" width="30" height="6" fill="url(#gSheen)" style="animation:sh0 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
   <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">420k of 1.0M</text>
 </g>
 <g>
@@ -64,17 +63,9 @@
   <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
 </g>
 
-<g>
-  <text class="mu" x="14" y="76" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">TASK  Agents panel redesign  ›  Verify and report</text>
-  <text class="pc" x="746" y="76" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">3/5  ·  60%</text>
-  <rect class="trk" x="14" y="82" width="732" height="8" rx="4"/>
-  <rect x="14" y="82" width="439" height="8" rx="4" fill="url(#gOk)"/>
-  <clipPath id="clt"><rect x="14" y="82" width="439" height="8" rx="4"/></clipPath>
-<g clip-path="url(#clt)"><rect x="14" y="82" width="36" height="8" fill="url(#gSheen)" style="animation:sht 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-1.14s"/></g><rect class="seg" x="159" y="82" width="2" height="8"/><rect class="seg" x="306" y="82" width="2" height="8"/><rect class="seg" x="452" y="82" width="2" height="8"/><rect class="seg" x="599" y="82" width="2" height="8"/>
-</g>
 
 
-<clipPath id="rc"><rect x="14" y="102" width="732" height="2" rx="1"/></clipPath>
-<rect class="rail" x="14" y="102" width="732" height="2" rx="1"/>
-<g clip-path="url(#rc)"><rect x="14" y="102" width="205" height="2" rx="1" fill="url(#gRail)" style="animation:rl 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-1.34s"/></g>
+<clipPath id="rc"><rect x="14" y="70" width="732" height="2" rx="1"/></clipPath>
+<rect class="rail" x="14" y="70" width="732" height="2" rx="1"/>
+<g clip-path="url(#rc)"><rect x="14" y="70" width="205" height="2" rx="1" fill="url(#gRail)" style="animation:rl 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g>
 </svg>

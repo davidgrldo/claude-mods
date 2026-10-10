@@ -1,0 +1,545 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="108" viewBox="0 0 760 108" role="img" aria-label="The live-status monitor moving through a turn: idle, working through five steps with the task bar filling, then done">
+<g opacity="1"><svg x="0" y="0" width="760" height="76" viewBox="0 0 760 76">
+<style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+@keyframes rl_f0{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<defs>
+<linearGradient id="gOk_f0" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_f0" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_f0" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_f0" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gNone_f0" x1="0" x2="1"><stop offset="0" stop-color="#999"/><stop offset="1" stop-color="#bbb"/></linearGradient>
+<linearGradient id="gSheen_f0" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="gRail_f0" x1="0" x2="1"><stop offset="0" stop-color="#FFA500" stop-opacity="0"/><stop offset=".5" stop-color="#FFA500"/><stop offset="1" stop-color="#FFBC25" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="759" height="75" rx="12"/>
+
+<g>
+  <circle class="dot-ok" cx="19" cy="25" r="4"/>
+  <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Opus 5.5</text>
+  <rect class="chip" x="97" y="17" width="45" height="17" rx="8.5"/>
+  <text class="chipt" x="119.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">HIGH</text>
+  <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
+  <rect class="lz-idle" x="34" y="40" width="45" height="17" rx="8.5"/>
+  <text class="lz-idlet" x="56.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">IDLE</text>
+  <text class="mu" x="87" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">last turn 1:12 · 9 steps</text>
+</g>
+
+<g>
+  <text class="mu" x="325" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
+  <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">12%</text>
+  <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
+  <rect x="325" y="33" width="15" height="6" rx="3" fill="url(#gOk_f0)"/>
+  <rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">120k of 1.0M</text>
+</g>
+<g>
+  <text class="mu" x="471" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H</text>
+  <text class="pc" x="599" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">30%</text>
+  <rect class="trk" x="471" y="33" width="128" height="6" rx="3"/>
+  <rect x="471" y="33" width="38" height="6" rx="3" fill="url(#gOk_f0)"/>
+  <rect class="tick" x="548" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="580" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="471" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
+</g>
+<g>
+  <text class="mu" x="617" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D</text>
+  <text class="pc" x="745" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">12%</text>
+  <rect class="trk" x="617" y="33" width="128" height="6" rx="3"/>
+  <rect x="617" y="33" width="15" height="6" rx="3" fill="url(#gOk_f0)"/>
+  <rect class="tick" x="694" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="726" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+</g>
+
+
+
+<clipPath id="rc_f0"><rect x="14" y="70" width="732" height="2" rx="1"/></clipPath>
+<rect class="rail" x="14" y="70" width="732" height="2" rx="1"/>
+
+</svg></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.1356;0.1653;0.3008;0.3009;1" dur="11.8s" repeatCount="indefinite"/><svg x="0" y="0" width="760" height="108" viewBox="0 0 760 108">
+<style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+@keyframes sh0_f1{0%{transform:translateX(-30px)}100%{transform:translateX(18px)}}
+@keyframes rl_f1{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<defs>
+<linearGradient id="gOk_f1" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_f1" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_f1" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_f1" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gNone_f1" x1="0" x2="1"><stop offset="0" stop-color="#999"/><stop offset="1" stop-color="#bbb"/></linearGradient>
+<linearGradient id="gSheen_f1" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="gRail_f1" x1="0" x2="1"><stop offset="0" stop-color="#FFA500" stop-opacity="0"/><stop offset=".5" stop-color="#FFA500"/><stop offset="1" stop-color="#FFBC25" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="759" height="107" rx="12"/>
+
+<g>
+  <circle class="dot-run" cx="19" cy="25" r="4"/>
+  <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Opus 5.5</text>
+  <rect class="chip" x="97" y="17" width="45" height="17" rx="8.5"/>
+  <text class="chipt" x="119.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">HIGH</text>
+  <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
+  <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
+  <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:08 · 2 steps · 2 tools</text>
+</g>
+
+<g>
+  <text class="mu" x="325" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
+  <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">14%</text>
+  <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
+  <rect x="325" y="33" width="18" height="6" rx="3" fill="url(#gOk_f1)"/>
+  <clipPath id="cl0_f1"><rect x="325" y="33" width="18" height="6" rx="3"/></clipPath>
+<g clip-path="url(#cl0_f1)"><rect x="325" y="33" width="30" height="6" fill="url(#gSheen_f1)" style="animation:sh0_f1 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">140k of 1.0M</text>
+</g>
+<g>
+  <text class="mu" x="471" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H</text>
+  <text class="pc" x="599" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">30%</text>
+  <rect class="trk" x="471" y="33" width="128" height="6" rx="3"/>
+  <rect x="471" y="33" width="38" height="6" rx="3" fill="url(#gOk_f1)"/>
+  <rect class="tick" x="548" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="580" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="471" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
+</g>
+<g>
+  <text class="mu" x="617" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D</text>
+  <text class="pc" x="745" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">12%</text>
+  <rect class="trk" x="617" y="33" width="128" height="6" rx="3"/>
+  <rect x="617" y="33" width="15" height="6" rx="3" fill="url(#gOk_f1)"/>
+  <rect class="tick" x="694" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="726" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+</g>
+
+<g>
+  <text class="mu" x="14" y="76" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">TASK  Ship the redesign  ›  Plan</text>
+  <text class="pc" x="746" y="76" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">0/5  ·  0%</text>
+  <rect class="trk" x="14" y="82" width="732" height="8" rx="4"/>
+  
+  <rect class="seg" x="159" y="82" width="2" height="8"/><rect class="seg" x="306" y="82" width="2" height="8"/><rect class="seg" x="452" y="82" width="2" height="8"/><rect class="seg" x="599" y="82" width="2" height="8"/>
+</g>
+
+
+<clipPath id="rc_f1"><rect x="14" y="102" width="732" height="2" rx="1"/></clipPath>
+<rect class="rail" x="14" y="102" width="732" height="2" rx="1"/>
+<g clip-path="url(#rc_f1)"><rect x="14" y="102" width="205" height="2" rx="1" fill="url(#gRail_f1)" style="animation:rl_f1 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g>
+</svg></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2712;0.3008;0.4364;0.4365;1" dur="11.8s" repeatCount="indefinite"/><svg x="0" y="0" width="760" height="108" viewBox="0 0 760 108">
+<style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+@keyframes sh0_f2{0%{transform:translateX(-30px)}100%{transform:translateX(29px)}}
+@keyframes sht_f2{0%{transform:translateX(-36px)}100%{transform:translateX(146px)}}
+@keyframes rl_f2{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<defs>
+<linearGradient id="gOk_f2" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_f2" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_f2" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_f2" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gNone_f2" x1="0" x2="1"><stop offset="0" stop-color="#999"/><stop offset="1" stop-color="#bbb"/></linearGradient>
+<linearGradient id="gSheen_f2" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="gRail_f2" x1="0" x2="1"><stop offset="0" stop-color="#FFA500" stop-opacity="0"/><stop offset=".5" stop-color="#FFA500"/><stop offset="1" stop-color="#FFBC25" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="759" height="107" rx="12"/>
+
+<g>
+  <circle class="dot-run" cx="19" cy="25" r="4"/>
+  <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Opus 5.5</text>
+  <rect class="chip" x="97" y="17" width="45" height="17" rx="8.5"/>
+  <text class="chipt" x="119.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">HIGH</text>
+  <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
+  <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
+  <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:17 · 3 steps · 5 tools</text>
+</g>
+
+<g>
+  <text class="mu" x="325" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
+  <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">23%</text>
+  <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
+  <rect x="325" y="33" width="29" height="6" rx="3" fill="url(#gOk_f2)"/>
+  <clipPath id="cl0_f2"><rect x="325" y="33" width="29" height="6" rx="3"/></clipPath>
+<g clip-path="url(#cl0_f2)"><rect x="325" y="33" width="30" height="6" fill="url(#gSheen_f2)" style="animation:sh0_f2 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">230k of 1.0M</text>
+</g>
+<g>
+  <text class="mu" x="471" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H</text>
+  <text class="pc" x="599" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">31%</text>
+  <rect class="trk" x="471" y="33" width="128" height="6" rx="3"/>
+  <rect x="471" y="33" width="40" height="6" rx="3" fill="url(#gOk_f2)"/>
+  <rect class="tick" x="548" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="580" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="471" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
+</g>
+<g>
+  <text class="mu" x="617" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D</text>
+  <text class="pc" x="745" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">12%</text>
+  <rect class="trk" x="617" y="33" width="128" height="6" rx="3"/>
+  <rect x="617" y="33" width="15" height="6" rx="3" fill="url(#gOk_f2)"/>
+  <rect class="tick" x="694" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="726" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+</g>
+
+<g>
+  <text class="mu" x="14" y="76" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">TASK  Ship the redesign  ›  Build the card</text>
+  <text class="pc" x="746" y="76" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">1/5  ·  20%</text>
+  <rect class="trk" x="14" y="82" width="732" height="8" rx="4"/>
+  <rect x="14" y="82" width="146" height="8" rx="4" fill="url(#gOk_f2)"/>
+  <clipPath id="clt_f2"><rect x="14" y="82" width="146" height="8" rx="4"/></clipPath>
+<g clip-path="url(#clt_f2)"><rect x="14" y="82" width="36" height="8" fill="url(#gSheen_f2)" style="animation:sht_f2 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="seg" x="159" y="82" width="2" height="8"/><rect class="seg" x="306" y="82" width="2" height="8"/><rect class="seg" x="452" y="82" width="2" height="8"/><rect class="seg" x="599" y="82" width="2" height="8"/>
+</g>
+
+
+<clipPath id="rc_f2"><rect x="14" y="102" width="732" height="2" rx="1"/></clipPath>
+<rect class="rail" x="14" y="102" width="732" height="2" rx="1"/>
+<g clip-path="url(#rc_f2)"><rect x="14" y="102" width="205" height="2" rx="1" fill="url(#gRail_f2)" style="animation:rl_f2 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g>
+</svg></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.4068;0.4364;0.5720;0.5721;1" dur="11.8s" repeatCount="indefinite"/><svg x="0" y="0" width="760" height="108" viewBox="0 0 760 108">
+<style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+@keyframes sh0_f3{0%{transform:translateX(-30px)}100%{transform:translateX(42px)}}
+@keyframes sht_f3{0%{transform:translateX(-36px)}100%{transform:translateX(293px)}}
+@keyframes rl_f3{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<defs>
+<linearGradient id="gOk_f3" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_f3" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_f3" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_f3" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gNone_f3" x1="0" x2="1"><stop offset="0" stop-color="#999"/><stop offset="1" stop-color="#bbb"/></linearGradient>
+<linearGradient id="gSheen_f3" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="gRail_f3" x1="0" x2="1"><stop offset="0" stop-color="#FFA500" stop-opacity="0"/><stop offset=".5" stop-color="#FFA500"/><stop offset="1" stop-color="#FFBC25" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="759" height="107" rx="12"/>
+
+<g>
+  <circle class="dot-run" cx="19" cy="25" r="4"/>
+  <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Opus 5.5</text>
+  <rect class="chip" x="97" y="17" width="45" height="17" rx="8.5"/>
+  <text class="chipt" x="119.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">HIGH</text>
+  <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
+  <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
+  <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:26 · 4 steps · 8 tools</text>
+</g>
+
+<g>
+  <text class="mu" x="325" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
+  <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">33%</text>
+  <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
+  <rect x="325" y="33" width="42" height="6" rx="3" fill="url(#gOk_f3)"/>
+  <clipPath id="cl0_f3"><rect x="325" y="33" width="42" height="6" rx="3"/></clipPath>
+<g clip-path="url(#cl0_f3)"><rect x="325" y="33" width="30" height="6" fill="url(#gSheen_f3)" style="animation:sh0_f3 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">330k of 1.0M</text>
+</g>
+<g>
+  <text class="mu" x="471" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H</text>
+  <text class="pc" x="599" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">32%</text>
+  <rect class="trk" x="471" y="33" width="128" height="6" rx="3"/>
+  <rect x="471" y="33" width="41" height="6" rx="3" fill="url(#gOk_f3)"/>
+  <rect class="tick" x="548" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="580" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="471" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
+</g>
+<g>
+  <text class="mu" x="617" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D</text>
+  <text class="pc" x="745" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">12%</text>
+  <rect class="trk" x="617" y="33" width="128" height="6" rx="3"/>
+  <rect x="617" y="33" width="15" height="6" rx="3" fill="url(#gOk_f3)"/>
+  <rect class="tick" x="694" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="726" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+</g>
+
+<g>
+  <text class="mu" x="14" y="76" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">TASK  Ship the redesign  ›  Wire the hooks</text>
+  <text class="pc" x="746" y="76" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">2/5  ·  40%</text>
+  <rect class="trk" x="14" y="82" width="732" height="8" rx="4"/>
+  <rect x="14" y="82" width="293" height="8" rx="4" fill="url(#gOk_f3)"/>
+  <clipPath id="clt_f3"><rect x="14" y="82" width="293" height="8" rx="4"/></clipPath>
+<g clip-path="url(#clt_f3)"><rect x="14" y="82" width="36" height="8" fill="url(#gSheen_f3)" style="animation:sht_f3 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="seg" x="159" y="82" width="2" height="8"/><rect class="seg" x="306" y="82" width="2" height="8"/><rect class="seg" x="452" y="82" width="2" height="8"/><rect class="seg" x="599" y="82" width="2" height="8"/>
+</g>
+
+
+<clipPath id="rc_f3"><rect x="14" y="102" width="732" height="2" rx="1"/></clipPath>
+<rect class="rail" x="14" y="102" width="732" height="2" rx="1"/>
+<g clip-path="url(#rc_f3)"><rect x="14" y="102" width="205" height="2" rx="1" fill="url(#gRail_f3)" style="animation:rl_f3 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g>
+</svg></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5424;0.5720;0.7076;0.7077;1" dur="11.8s" repeatCount="indefinite"/><svg x="0" y="0" width="760" height="108" viewBox="0 0 760 108">
+<style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+@keyframes sh0_f4{0%{transform:translateX(-30px)}100%{transform:translateX(56px)}}
+@keyframes sht_f4{0%{transform:translateX(-36px)}100%{transform:translateX(439px)}}
+@keyframes rl_f4{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<defs>
+<linearGradient id="gOk_f4" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_f4" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_f4" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_f4" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gNone_f4" x1="0" x2="1"><stop offset="0" stop-color="#999"/><stop offset="1" stop-color="#bbb"/></linearGradient>
+<linearGradient id="gSheen_f4" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="gRail_f4" x1="0" x2="1"><stop offset="0" stop-color="#FFA500" stop-opacity="0"/><stop offset=".5" stop-color="#FFA500"/><stop offset="1" stop-color="#FFBC25" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="759" height="107" rx="12"/>
+
+<g>
+  <circle class="dot-run" cx="19" cy="25" r="4"/>
+  <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Opus 5.5</text>
+  <rect class="chip" x="97" y="17" width="45" height="17" rx="8.5"/>
+  <text class="chipt" x="119.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">HIGH</text>
+  <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
+  <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
+  <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:35 · 5 steps · 11 tools</text>
+</g>
+
+<g>
+  <text class="mu" x="325" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
+  <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">44%</text>
+  <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
+  <rect x="325" y="33" width="56" height="6" rx="3" fill="url(#gOk_f4)"/>
+  <clipPath id="cl0_f4"><rect x="325" y="33" width="56" height="6" rx="3"/></clipPath>
+<g clip-path="url(#cl0_f4)"><rect x="325" y="33" width="30" height="6" fill="url(#gSheen_f4)" style="animation:sh0_f4 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">440k of 1.0M</text>
+</g>
+<g>
+  <text class="mu" x="471" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H</text>
+  <text class="pc" x="599" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">33%</text>
+  <rect class="trk" x="471" y="33" width="128" height="6" rx="3"/>
+  <rect x="471" y="33" width="42" height="6" rx="3" fill="url(#gOk_f4)"/>
+  <rect class="tick" x="548" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="580" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="471" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
+</g>
+<g>
+  <text class="mu" x="617" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D</text>
+  <text class="pc" x="745" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">12%</text>
+  <rect class="trk" x="617" y="33" width="128" height="6" rx="3"/>
+  <rect x="617" y="33" width="15" height="6" rx="3" fill="url(#gOk_f4)"/>
+  <rect class="tick" x="694" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="726" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+</g>
+
+<g>
+  <text class="mu" x="14" y="76" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">TASK  Ship the redesign  ›  Test responsive</text>
+  <text class="pc" x="746" y="76" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">3/5  ·  60%</text>
+  <rect class="trk" x="14" y="82" width="732" height="8" rx="4"/>
+  <rect x="14" y="82" width="439" height="8" rx="4" fill="url(#gOk_f4)"/>
+  <clipPath id="clt_f4"><rect x="14" y="82" width="439" height="8" rx="4"/></clipPath>
+<g clip-path="url(#clt_f4)"><rect x="14" y="82" width="36" height="8" fill="url(#gSheen_f4)" style="animation:sht_f4 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="seg" x="159" y="82" width="2" height="8"/><rect class="seg" x="306" y="82" width="2" height="8"/><rect class="seg" x="452" y="82" width="2" height="8"/><rect class="seg" x="599" y="82" width="2" height="8"/>
+</g>
+
+
+<clipPath id="rc_f4"><rect x="14" y="102" width="732" height="2" rx="1"/></clipPath>
+<rect class="rail" x="14" y="102" width="732" height="2" rx="1"/>
+<g clip-path="url(#rc_f4)"><rect x="14" y="102" width="205" height="2" rx="1" fill="url(#gRail_f4)" style="animation:rl_f4 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g>
+</svg></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6780;0.7076;0.8432;0.8433;1" dur="11.8s" repeatCount="indefinite"/><svg x="0" y="0" width="760" height="108" viewBox="0 0 760 108">
+<style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+@keyframes sh0_f5{0%{transform:translateX(-30px)}100%{transform:translateX(70px)}}
+@keyframes sht_f5{0%{transform:translateX(-36px)}100%{transform:translateX(586px)}}
+@keyframes rl_f5{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<defs>
+<linearGradient id="gOk_f5" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_f5" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_f5" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_f5" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gNone_f5" x1="0" x2="1"><stop offset="0" stop-color="#999"/><stop offset="1" stop-color="#bbb"/></linearGradient>
+<linearGradient id="gSheen_f5" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="gRail_f5" x1="0" x2="1"><stop offset="0" stop-color="#FFA500" stop-opacity="0"/><stop offset=".5" stop-color="#FFA500"/><stop offset="1" stop-color="#FFBC25" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="759" height="107" rx="12"/>
+
+<g>
+  <circle class="dot-run" cx="19" cy="25" r="4"/>
+  <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Opus 5.5</text>
+  <rect class="chip" x="97" y="17" width="45" height="17" rx="8.5"/>
+  <text class="chipt" x="119.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">HIGH</text>
+  <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
+  <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
+  <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:44 · 6 steps · 14 tools</text>
+</g>
+
+<g>
+  <text class="mu" x="325" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
+  <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">55%</text>
+  <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
+  <rect x="325" y="33" width="70" height="6" rx="3" fill="url(#gOk_f5)"/>
+  <clipPath id="cl0_f5"><rect x="325" y="33" width="70" height="6" rx="3"/></clipPath>
+<g clip-path="url(#cl0_f5)"><rect x="325" y="33" width="30" height="6" fill="url(#gSheen_f5)" style="animation:sh0_f5 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">550k of 1.0M</text>
+</g>
+<g>
+  <text class="mu" x="471" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H</text>
+  <text class="pc" x="599" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">34%</text>
+  <rect class="trk" x="471" y="33" width="128" height="6" rx="3"/>
+  <rect x="471" y="33" width="44" height="6" rx="3" fill="url(#gOk_f5)"/>
+  <rect class="tick" x="548" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="580" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="471" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
+</g>
+<g>
+  <text class="mu" x="617" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D</text>
+  <text class="pc" x="745" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">12%</text>
+  <rect class="trk" x="617" y="33" width="128" height="6" rx="3"/>
+  <rect x="617" y="33" width="15" height="6" rx="3" fill="url(#gOk_f5)"/>
+  <rect class="tick" x="694" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="726" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+</g>
+
+<g>
+  <text class="mu" x="14" y="76" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">TASK  Ship the redesign  ›  Write README</text>
+  <text class="pc" x="746" y="76" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">4/5  ·  80%</text>
+  <rect class="trk" x="14" y="82" width="732" height="8" rx="4"/>
+  <rect x="14" y="82" width="586" height="8" rx="4" fill="url(#gOk_f5)"/>
+  <clipPath id="clt_f5"><rect x="14" y="82" width="586" height="8" rx="4"/></clipPath>
+<g clip-path="url(#clt_f5)"><rect x="14" y="82" width="36" height="8" fill="url(#gSheen_f5)" style="animation:sht_f5 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="seg" x="159" y="82" width="2" height="8"/><rect class="seg" x="306" y="82" width="2" height="8"/><rect class="seg" x="452" y="82" width="2" height="8"/><rect class="seg" x="599" y="82" width="2" height="8"/>
+</g>
+
+
+<clipPath id="rc_f5"><rect x="14" y="102" width="732" height="2" rx="1"/></clipPath>
+<rect class="rail" x="14" y="102" width="732" height="2" rx="1"/>
+<g clip-path="url(#rc_f5)"><rect x="14" y="102" width="205" height="2" rx="1" fill="url(#gRail_f5)" style="animation:rl_f5 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g>
+</svg></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.8136;0.8432;0.9703;1" dur="11.8s" repeatCount="indefinite"/><svg x="0" y="0" width="760" height="108" viewBox="0 0 760 108">
+<style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+@keyframes rl_f6{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<defs>
+<linearGradient id="gOk_f6" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_f6" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_f6" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_f6" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gNone_f6" x1="0" x2="1"><stop offset="0" stop-color="#999"/><stop offset="1" stop-color="#bbb"/></linearGradient>
+<linearGradient id="gSheen_f6" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="gRail_f6" x1="0" x2="1"><stop offset="0" stop-color="#FFA500" stop-opacity="0"/><stop offset=".5" stop-color="#FFA500"/><stop offset="1" stop-color="#FFBC25" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="759" height="107" rx="12"/>
+
+<g>
+  <circle class="dot-ok" cx="19" cy="25" r="4"/>
+  <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Opus 5.5</text>
+  <rect class="chip" x="97" y="17" width="45" height="17" rx="8.5"/>
+  <text class="chipt" x="119.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">HIGH</text>
+  <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
+  <rect class="lz-idle" x="34" y="40" width="45" height="17" rx="8.5"/>
+  <text class="lz-idlet" x="56.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">IDLE</text>
+  <text class="mu" x="87" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">last turn 0:58 · 11 steps</text>
+</g>
+
+<g>
+  <text class="mu" x="325" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
+  <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">58%</text>
+  <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
+  <rect x="325" y="33" width="74" height="6" rx="3" fill="url(#gOk_f6)"/>
+  <rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">580k of 1.0M</text>
+</g>
+<g>
+  <text class="mu" x="471" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H</text>
+  <text class="pc" x="599" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">35%</text>
+  <rect class="trk" x="471" y="33" width="128" height="6" rx="3"/>
+  <rect x="471" y="33" width="45" height="6" rx="3" fill="url(#gOk_f6)"/>
+  <rect class="tick" x="548" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="580" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="471" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
+</g>
+<g>
+  <text class="mu" x="617" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D</text>
+  <text class="pc" x="745" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">12%</text>
+  <rect class="trk" x="617" y="33" width="128" height="6" rx="3"/>
+  <rect x="617" y="33" width="15" height="6" rx="3" fill="url(#gOk_f6)"/>
+  <rect class="tick" x="694" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="726" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+</g>
+
+<g>
+  <text class="mu" x="14" y="76" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">TASK  Ship the redesign</text>
+  <text class="pc" x="746" y="76" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">5/5  ·  100%</text>
+  <rect class="trk" x="14" y="82" width="732" height="8" rx="4"/>
+  <rect x="14" y="82" width="732" height="8" rx="4" fill="url(#gDone_f6)"/>
+  <rect class="seg" x="159" y="82" width="2" height="8"/><rect class="seg" x="306" y="82" width="2" height="8"/><rect class="seg" x="452" y="82" width="2" height="8"/><rect class="seg" x="599" y="82" width="2" height="8"/>
+</g>
+
+
+<clipPath id="rc_f6"><rect x="14" y="102" width="732" height="2" rx="1"/></clipPath>
+<rect class="rail" x="14" y="102" width="732" height="2" rx="1"/>
+
+</svg></g>
+</svg>
