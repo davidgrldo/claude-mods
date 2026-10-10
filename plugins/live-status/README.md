@@ -60,6 +60,7 @@ To remove it: `/plugin uninstall live-status`.
 | **Task bar** | Progress of the task being worked on, `3/5 · 60%`, segmented per step | When the task is reported (see below) |
 | **Agents** | One row per subagent, inline when there is no room for the panel | Live |
 | **Agents panel** | Summary tiles plus a card per subagent: status, type, model, effort, time, tokens, steps, context bar | Live |
+| **Sessions** | Every Claude Code session on the machine, with name, folder, where it runs (desktop / cli), `WORKING` or `IDLE` and when it last changed; this one is marked `THIS`. The band shows `3 sessions · 2 working` | Re-read every 3 s, redrawn only when something changed |
 
 Level is never shown by color alone: the words `HIGH` and `CRITICAL` sit next to the bar. A toast appears once when
 context or a limit crosses 85%, and again at 95%.
@@ -76,6 +77,16 @@ guessing. Subagents show **tokens, time and context, not dollars**: the engine r
 | `/agents-live` | Toggles only the agents panel |
 
 The agents panel opens by itself at session start, and the band is on from the first moment.
+
+### Watching other sessions
+
+The side panel lists **every live session on your machine**, so you can keep an eye on a long run in another window:
+
+![Sessions panel](docs/sessions.svg)
+
+It reads the small registry entries Claude Code keeps in `~/.claude/sessions/<pid>.json` (name, folder, status, last update).
+Nothing else: **no transcripts, no keys, no network.** Entries untouched for 24 hours are treated as dead and hidden. Per-session
+model and context are not in that registry, so other sessions show status and activity only; your own session shows the full card.
 
 ## Task progress
 

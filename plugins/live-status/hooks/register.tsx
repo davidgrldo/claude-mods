@@ -1,7 +1,7 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
-import type { Crew, Limit, Panel, Run, Task, Turn, Usage } from '../types'
+import type { Crew, Limit, Panel, Run, SessionRow, Task, Turn, Usage } from '../types'
 
 const NO_USAGE: Usage = { ctxPercent: null, ctxTokens: null, ctxWindow: 0, limits: [], costUsd: null }
 const NO_TURN: Turn = { isRunning: false, startedAt: 0, steps: 0, tools: 0, lastSeconds: 0, agents: 0 }
@@ -13,6 +13,7 @@ const turn = atom({ plugin: 'live-status', key: 'turn' } as const, NO_TURN)
 const task = atom({ plugin: 'live-status', key: 'task' } as const, null)
 const crew = atom({ plugin: 'live-status', key: 'crew' } as const, { spawned: 0, done: 0 })
 const runs = atom({ plugin: 'live-status', key: 'runs' } as const, [])
+const sessions = atom({ plugin: 'live-status', key: 'sessions' } as const, [])
 const panel = atom({ plugin: 'live-status', key: 'panel' } as const, { isCompact: false, isDoneCollapsed: false })
 const now = atom({ plugin: 'live-status', key: 'now' } as const, 0)
 
@@ -169,9 +170,10 @@ function cardSvg(args: {
   gauges: Gauge[]
   task: TaskView | null
   agents: { rows: AgentRow[]; working: number; more: number }
+  sessions?: { total: number; working: number }
   nowMs: number
 }): { svg: string; H: number } {
-  const { W, stack, name, fx, cost, state, detail, isRunning, gauges, task: tv, agents: ag, nowMs } = args
+  const { W, stack, name, fx, cost, state, detail, isRunning, gauges, task: tv, agents: ag, sessions: ss, nowMs } = args
   const PAD = 14
   const baseH = stack ? 118 : 76
   const taskH = tv ? 32 : 0
@@ -194,6 +196,7 @@ function cardSvg(args: {
   const chipX = PAD + 20 + Math.round(nameW) + 8
   const known = fx !== ''
   const costX = PAD + leftW
+  const sessText = ss && ss.total > 1 ? `${ss.total} sessions · ${ss.working} working` : ''
   const stateText = state.toUpperCase()
   const lzW = Math.round(textWidth(stateText, 9.5) + 16 + stateText.length * 0.6)
   const left = `
@@ -205,7 +208,8 @@ function cardSvg(args: {
   ${cost ? `<text class="mu" x="${costX}" y="${PAD + 15}" text-anchor="end" font-family="${FONT}" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">${xml(cost)}</text>` : ''}
   <rect class="${isRunning ? 'lz-run' : 'lz-idle'}" x="${PAD + 20}" y="${PAD + 26}" width="${lzW}" height="17" rx="8.5"/>
   <text class="${isRunning ? 'lz-runt' : 'lz-idlet'}" x="${PAD + 20 + lzW / 2}" y="${PAD + 38}" text-anchor="middle" font-family="${FONT}" font-size="9.5" font-weight="700" letter-spacing=".6">${xml(stateText)}</text>
-  <text class="mu" x="${PAD + 20 + lzW + 8}" y="${PAD + 39}" font-family="${FONT}" font-size="11">${xml(fitText(detail, 11, leftW - 22 - lzW - 8))}</text>
+  ${sessText ? `<text class="mu" x="${costX}" y="${PAD + 39}" text-anchor="end" font-family="${FONT}" font-size="10" font-weight="600">${xml(sessText)}</text>` : ''}
+  <text class="mu" x="${PAD + 20 + lzW + 8}" y="${PAD + 39}" font-family="${FONT}" font-size="11">${xml(fitText(detail, 11, leftW - 22 - lzW - 8 - (sessText ? Math.round(textWidth(sessText, 10)) + 12 : 0)))}</text>
 </g>`
 
   // Gauges.
@@ -432,6 +436,88 @@ ${sheen}`
   return paneSvg(W, H, kf, body)
 }
 
+// ---------------------------------------------------------------------------
+// Every session on this machine. Claude Code keeps a small registry entry per
+// live session in ~/.claude/sessions/<pid>.json (name, folder, status, last
+// update). Only that metadata is read: never transcripts, never the .key files.
+
+const DEAD_AFTER_MS = 24 * 3600 * 1000
+
+const lastSegment = (p: string): string => p.split(/[\\/]/).filter(Boolean).pop() || p
+
+async function readSessions($: EngineInterface): Promise<SessionRow[]> {
+  try {
+    const home = ((await $.env.get('USERPROFILE')) || (await $.env.get('HOME')) || '').replace(/\\/g, '/')
+    if (!home) return []
+    const dir = `${home}/.claude/sessions`
+    const entries = await $.fs.list(dir)
+    const self = await $.session.id()
+    const at = await $.clock.now()
+    const rows: SessionRow[] = []
+    for (const en of entries) {
+      if (!/^\d+\.json$/.test(en.name)) continue
+      try {
+        const raw = JSON.parse((await $.fs.read(`${dir}/${en.name}`)) as string) as Record<string, unknown>
+        const id = typeof raw.sessionId === 'string' ? raw.sessionId : ''
+        if (!id) continue
+        const updatedAt = Number(raw.updatedAt ?? raw.statusUpdatedAt ?? raw.startedAt ?? 0)
+        if (at - updatedAt > DEAD_AFTER_MS) continue
+        const cwd = typeof raw.cwd === 'string' ? raw.cwd : ''
+        rows.push({
+          id,
+          pid: Number(raw.pid ?? 0),
+          name: typeof raw.name === 'string' && raw.name ? raw.name : lastSegment(cwd) || 'session',
+          project: lastSegment(cwd),
+          entry: typeof raw.entrypoint === 'string' ? raw.entrypoint.replace(/^claude-/, '') : 'cli',
+          status: raw.status === 'busy' ? 'busy' : 'idle',
+          updatedAt,
+          startedAt: Number(raw.startedAt ?? 0),
+          isSelf: id === self,
+        })
+      } catch {
+        // A half-written or unreadable entry: skip it, the next poll gets it.
+      }
+    }
+    // This session first, then working ones, then the most recently active.
+    return rows.sort(
+      (a, b) =>
+        Number(b.isSelf) - Number(a.isSelf) ||
+        (a.status === b.status ? b.updatedAt - a.updatedAt : a.status === 'busy' ? -1 : 1),
+    )
+  } catch {
+    return []
+  }
+}
+
+const ago = (ms: number): string => {
+  const s = Math.max(0, Math.round(ms / 1000))
+  if (s < 60) return `${s}s ago`
+  const m = Math.floor(s / 60)
+  return m < 60 ? `${m}m ago` : `${Math.floor(m / 60)}h ago`
+}
+
+const sessionSvg = (W: number, s: SessionRow, at: number): string => {
+  const H = 58
+  const PAD = 14
+  const busy = s.status === 'busy'
+  const lz = busy ? { text: 'WORKING', bg: 'lz-run', fg: 'lz-runt' } : { text: 'IDLE', bg: 'lz-idle', fg: 'lz-idlet' }
+  const lzW = Math.round(textWidth(lz.text, 9.5) + 16 + lz.text.length * 0.6)
+  const thisW = s.isSelf ? Math.round(textWidth('THIS', 9) + 14) : 0
+  const meta = `${s.entry} · ${s.project} · ${ago(at - s.updatedAt)}`
+  const thisChip = s.isSelf
+    ? `<rect class="chip" x="${W - PAD - lzW - thisW - 8}" y="${PAD + 4}" width="${thisW}" height="15" rx="7.5"/><text class="chipt" x="${W - PAD - lzW - thisW / 2 - 8}" y="${PAD + 15}" text-anchor="middle" font-family="${FONT}" font-size="9" font-weight="700" letter-spacing=".6">THIS</text>`
+    : ''
+  const body = `
+<rect class="card" x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="12"${s.isSelf ? ' style="stroke:#FFBC25"' : ''}/>
+<circle class="${busy ? 'dot-run' : 'dot-ok'}" cx="${PAD + 5}" cy="${PAD + 11}" r="4"/>
+<text class="nm" x="${PAD + 20}" y="${PAD + 15}" font-family="${FONT}" font-size="13" font-weight="650">${xml(fitText(s.name, 13, W - PAD * 2 - 20 - lzW - thisW - 20))}</text>
+${thisChip}
+<rect class="${lz.bg}" x="${W - PAD - lzW}" y="${PAD + 3}" width="${lzW}" height="17" rx="8.5"/>
+<text class="${lz.fg}" x="${W - PAD - lzW / 2}" y="${PAD + 15}" text-anchor="middle" font-family="${FONT}" font-size="9.5" font-weight="700" letter-spacing=".6">${lz.text}</text>
+<text class="mu" x="${PAD + 20}" y="${PAD + 38}" font-family="${FONT}" font-size="11" font-variant-numeric="tabular-nums">${xml(fitText(meta, 11, W - PAD * 2 - 20))}</text>`
+  return paneSvg(W, H, '', body)
+}
+
 async function togglePane($: EngineInterface): Promise<boolean> {
   const isOpen = (await $.ui.panes()).some(p => p.id === PANE)
   if (isOpen) {
@@ -492,9 +578,25 @@ export const register: Register = on => {
     // limit windows stay true. Changes the engine reports arrive at once through
     // session.measure.
     let ticks = 0
+    let lastSessionSig = ''
+    // First read right away, so the panel is not empty for the first seconds.
+    const firstRows = await readSessions($)
+    lastSessionSig = JSON.stringify(firstRows.map(r => [r.id, r.status, r.updatedAt, r.name]))
+    await update($, sessions, () => firstRows)
     $.clock.every(1000, () => {
       void (async () => {
         ticks += 1
+        if (ticks % 3 === 0) {
+          // Other sessions: re-read their registry entries, redraw only on a change.
+          const rows = await readSessions($)
+          const sig = JSON.stringify(rows.map(r => [r.id, r.status, r.updatedAt, r.name]))
+          if (sig !== lastSessionSig) {
+            lastSessionSig = sig
+            await update($, sessions, () => rows)
+            const at = await $.clock.now()
+            await update($, now, () => at)
+          }
+        }
         const t = await read($, turn)
         if (t.isRunning) {
           if (ticks % 5 === 0) await refresh($)
@@ -677,6 +779,8 @@ export const register: Register = on => {
     const nowMs = await $.clock.now()
     const running = list.filter(r => r.status === 'running').reverse()
     const finished = list.filter(r => r.status !== 'running').reverse()
+    const sessionList = await read($, sessions)
+    const sessionsWorking = sessionList.filter(s => s.status === 'busy').length
 
     const toggleCompact = (
       <Button
@@ -716,6 +820,18 @@ export const register: Register = on => {
             height={46}
           />
           {toggleCompact}
+          {!p.isCompact && <Text dimColor>Sessions · {sessionList.length} ({sessionsWorking} working)</Text>}
+          {!p.isCompact && sessionList.length === 0 && <Text dimColor>No sessions found yet.</Text>}
+          {!p.isCompact &&
+            sessionList.map(s => (
+              <Svg
+                key={s.id}
+                source={sessionSvg(W, s, nowMs)}
+                alt={`${s.name}${s.isSelf ? ' (this session)' : ''}: ${s.status === 'busy' ? 'working' : 'idle'}, ${s.project}, updated ${ago(nowMs - s.updatedAt)}`}
+                width={W}
+                height={58}
+              />
+            ))}
           {list.length === 0 && <Text dimColor>No subagents yet. They show up here the moment one starts.</Text>}
           {!p.isCompact && running.length > 0 && <Text dimColor>Working · {running.length}</Text>}
           {!p.isCompact && running.map(card)}
@@ -760,6 +876,22 @@ export const register: Register = on => {
           {running.length}/{list.length} running · {fmtTokens(list.reduce((s, r) => s + r.tokens, 0))} tokens
         </Text>
         {toggleCompact}
+        {!p.isCompact && sessionList.length > 0 && (
+          <Text dimColor>
+            sessions · {sessionList.length} ({sessionsWorking} working)
+          </Text>
+        )}
+        {!p.isCompact &&
+          sessionList.map(s => (
+            <Text key={s.id} wrap="truncate-end">
+              <Text color={s.status === 'busy' ? BLUE : GREEN}>{s.status === 'busy' ? '●' : '○'} </Text>
+              {s.name}
+              <Text dimColor>
+                {' '}
+                {s.isSelf ? '(this) ' : ''}· {s.project} · {ago(nowMs - s.updatedAt)}
+              </Text>
+            </Text>
+          ))}
         {list.length === 0 && <Text dimColor>No subagents yet.</Text>}
         {!p.isCompact && running.map(row)}
         {!p.isCompact && finished.length > 0 && toggleDone}
@@ -780,6 +912,8 @@ export const register: Register = on => {
     const fx = await read($, effort)
     const tv = taskView(await read($, task), await read($, crew))
     const runList = await read($, runs)
+    const allSessions = await read($, sessions)
+    const sessionSummary = { total: allSessions.length, working: allSessions.filter(s => s.status === 'busy').length }
     const crewCount = runList.length
 
     // Agents go inline when the panel has no room (narrow window) or is not open.
@@ -845,6 +979,7 @@ export const register: Register = on => {
         gauges,
         task: tv,
         agents: inline,
+        sessions: sessionSummary,
         nowMs: await $.clock.now(),
       })
       const alt =

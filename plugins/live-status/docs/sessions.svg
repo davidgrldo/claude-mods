@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="190" viewBox="0 0 520 190" role="img" aria-label="The sessions panel: every Claude Code session on the machine with its status">
+<svg x="0" y="0" width="520" height="58" viewBox="0 0 520 58"><style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+.lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+@media (prefers-color-scheme: dark){
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
+<linearGradient id="gOk_x0" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_x0" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_x0" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_x0" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gSheen_x0" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="519" height="57" rx="12" style="stroke:#FFBC25"/>
+<circle class="dot-run" cx="19" cy="25" r="4"/>
+<text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Claude mod and skins</text>
+<rect class="chip" x="392" y="18" width="39" height="15" rx="7.5"/><text class="chipt" x="411.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9" font-weight="700" letter-spacing=".6">THIS</text>
+<rect class="lz-run" x="439" y="17" width="67" height="17" rx="8.5"/>
+<text class="lz-runt" x="472.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+<text class="mu" x="34" y="52" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-variant-numeric="tabular-nums">desktop · claude-mods · 4s ago</text></svg>
+<svg x="0" y="66" width="520" height="58" viewBox="0 0 520 58"><style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+.lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+@media (prefers-color-scheme: dark){
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
+<linearGradient id="gOk_x1" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_x1" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_x1" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_x1" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gSheen_x1" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="519" height="57" rx="12"/>
+<circle class="dot-run" cx="19" cy="25" r="4"/>
+<text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Service Desk replica architecture</text>
+
+<rect class="lz-run" x="439" y="17" width="67" height="17" rx="8.5"/>
+<text class="lz-runt" x="472.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+<text class="mu" x="34" y="52" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-variant-numeric="tabular-nums">desktop · Service Desk · 12s ago</text></svg>
+<svg x="0" y="132" width="520" height="58" viewBox="0 0 520 58"><style>
+.card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
+.trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
+.dot-ok{fill:#1F7A4D}.dot-run{fill:#1D5FBF}
+.lz-run{fill:#E8F0FC}.lz-runt{fill:#1D5FBF}.lz-idle{fill:#EDF0F2}.lz-idlet{fill:#333333}
+.lv-hi{fill:#B54708}.lv-bad{fill:#C62F2F}.seg{fill:#F8F9FB}
+@media (prefers-color-scheme: dark){
+.card{fill:#282828;stroke:#3F3F3F}.nm{fill:#FFFFFF}.mu{fill:#C4C9D0}.pc{fill:#FFFFFF}
+.trk{fill:#3A3A38}.tick{fill:#9AA3AF}.chip{fill:#3A2F63}.chipt{fill:#D9CCFA}.chipx{stroke:#626B79}.rail{fill:#3A3A3A}
+.dot-ok{fill:#4FD08F}.dot-run{fill:#6DA7EC}
+.lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
+.lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
+
+.lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+@media (prefers-color-scheme: dark){
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
+<linearGradient id="gOk_x2" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
+<linearGradient id="gWarn_x2" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
+<linearGradient id="gBad_x2" x1="0" x2="1"><stop offset="0" stop-color="#C62F2F"/><stop offset="1" stop-color="#E34948"/></linearGradient>
+<linearGradient id="gDone_x2" x1="0" x2="1"><stop offset="0" stop-color="#1F7A4D"/><stop offset="1" stop-color="#138A5E"/></linearGradient>
+<linearGradient id="gSheen_x2" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect class="card" x=".5" y=".5" width="519" height="57" rx="12"/>
+<circle class="dot-ok" cx="19" cy="25" r="4"/>
+<text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Padelbor community features</text>
+
+<rect class="lz-idle" x="461" y="17" width="45" height="17" rx="8.5"/>
+<text class="lz-idlet" x="483.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">IDLE</text>
+<text class="mu" x="34" y="52" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-variant-numeric="tabular-nums">cli · padelbor · 4m ago</text></svg>
+</svg>

@@ -48,6 +48,19 @@ export type Run = {
 
 export type Panel = { isCompact: boolean; isDoneCollapsed: boolean }
 
+// One Claude Code session on this machine, from its entry in ~/.claude/sessions.
+export type SessionRow = {
+  id: string
+  pid: number
+  name: string
+  project: string
+  entry: string
+  status: 'busy' | 'idle'
+  updatedAt: number
+  startedAt: number
+  isSelf: boolean
+}
+
 declare module 'claude-code' {
   interface PluginState {
     'live-status': {
@@ -58,6 +71,7 @@ declare module 'claude-code' {
       task: Task | null
       crew: Crew
       runs: Run[]
+      sessions: SessionRow[]
       panel: Panel
       now: number
       isHidden: boolean

@@ -34,6 +34,7 @@
   <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
   <rect class="lz-idle" x="34" y="40" width="45" height="17" rx="8.5"/>
   <text class="lz-idlet" x="56.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">IDLE</text>
+  
   <text class="mu" x="87" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">last turn 1:12 · 9 steps</text>
 </g>
 
@@ -104,6 +105,7 @@
   <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
   <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
   <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  
   <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:08 · 2 steps · 2 tools</text>
 </g>
 
@@ -183,6 +185,7 @@
   <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
   <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
   <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  
   <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:17 · 3 steps · 5 tools</text>
 </g>
 
@@ -263,6 +266,7 @@
   <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
   <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
   <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  
   <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:26 · 4 steps · 8 tools</text>
 </g>
 
@@ -343,6 +347,7 @@
   <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
   <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
   <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  
   <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:35 · 5 steps · 11 tools</text>
 </g>
 
@@ -423,6 +428,7 @@
   <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
   <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
   <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
+  
   <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:44 · 6 steps · 14 tools</text>
 </g>
 
@@ -501,6 +507,7 @@
   <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
   <rect class="lz-idle" x="34" y="40" width="45" height="17" rx="8.5"/>
   <text class="lz-idlet" x="56.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">IDLE</text>
+  
   <text class="mu" x="87" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">last turn 0:58 · 11 steps</text>
 </g>
 

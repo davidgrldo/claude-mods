@@ -21,13 +21,13 @@ const src = fs.readFileSync(path.join(modDir, 'hooks', 'register.tsx'), 'utf8').
 const body =
   src
     .replace(/^import \{ atom, read, update \} from 'claude-code'\n/m, 'const atom = () => ({}), read = async () => null, update = async () => null\n')
-    .replace(/^import type .*\n/gm, '') + '\nexports.api = { cardSvg, agentSvg, statsSvg, CSS, PANE_CSS, FONT }\n'
+    .replace(/^import type .*\n/gm, '') + '\nexports.api = { cardSvg, agentSvg, statsSvg, sessionSvg, CSS, PANE_CSS, FONT }\n'
 const js = ts.transpileModule(body, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.React, jsxFactory: 'h' },
 }).outputText
 const mod = { exports: {} }
 new Function('exports', 'module', 'require', 'h', js)(mod.exports, mod, require, () => null)
-const { cardSvg, agentSvg, statsSvg, CSS, PANE_CSS, FONT } = mod.exports.api
+const { cardSvg, agentSvg, statsSvg, sessionSvg, CSS, PANE_CSS, FONT } = mod.exports.api
 
 // --- helpers -----------------------------------------------------------------
 const write = (dir, name, svg) => fs.writeFileSync(path.join(dir, name), svg)
@@ -294,5 +294,19 @@ write(outMod, 'agents-0.svg', statsSvg(520, list, 0))
 write(outMod, 'agents-1.svg', agentSvg(520, list[0], 0, 0))
 write(outMod, 'agents-2.svg', agentSvg(520, list[1], 0, 0))
 write(outMod, 'agents-3.svg', agentSvg(520, list[2], 0, 0))
+
+// All sessions, as the side panel lists them.
+const sess = [
+  { id: 's1', pid: 1, name: 'Claude mod and skins', project: 'claude-mods', entry: 'desktop', status: 'busy', updatedAt: -4000, startedAt: 0, isSelf: true },
+  { id: 's2', pid: 2, name: 'Service Desk replica architecture', project: 'Service Desk', entry: 'desktop', status: 'busy', updatedAt: -12000, startedAt: 0, isSelf: false },
+  { id: 's3', pid: 3, name: 'Padelbor community features', project: 'padelbor', entry: 'cli', status: 'idle', updatedAt: -240000, startedAt: 0, isSelf: false },
+]
+const SW = 520
+const sessCards = sess.map((s, i) => nest(uniq(sessionSvg(SW, s, 0), 'x' + i), 0, i * 66)).join('\n')
+write(
+  outMod,
+  'sessions.svg',
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${SW}" height="${sess.length * 66 - 8}" viewBox="0 0 ${SW} ${sess.length * 66 - 8}" role="img" aria-label="The sessions panel: every Claude Code session on the machine with its status">\n${sessCards}\n</svg>\n`,
+)
 
 console.log('built:', [...fs.readdirSync(outRoot).map(f => 'docs/' + f), ...fs.readdirSync(outMod).map(f => 'plugins/live-status/docs/' + f)].join(', '))
