@@ -21,13 +21,13 @@ const src = fs.readFileSync(path.join(modDir, 'hooks', 'register.tsx'), 'utf8').
 const body =
   src
     .replace(/^import \{ atom, read, update \} from 'claude-code'\n/m, 'const atom = () => ({}), read = async () => null, update = async () => null\n')
-    .replace(/^import type .*\n/gm, '') + '\nexports.api = { cardSvg, agentSvg, statsSvg, sessionSvg, CSS, PANE_CSS, FONT }\n'
+    .replace(/^import type .*\n/gm, '') + '\nexports.api = { cardSvg, agentSvg, statsSvg, sessionSvg, sectionSvg, CSS, PANE_CSS, FONT }\n'
 const js = ts.transpileModule(body, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.React, jsxFactory: 'h' },
 }).outputText
 const mod = { exports: {} }
 new Function('exports', 'module', 'require', 'h', js)(mod.exports, mod, require, () => null)
-const { cardSvg, agentSvg, statsSvg, sessionSvg, CSS, PANE_CSS, FONT } = mod.exports.api
+const { cardSvg, agentSvg, statsSvg, sessionSvg, sectionSvg, CSS, PANE_CSS, FONT } = mod.exports.api
 
 // --- helpers -----------------------------------------------------------------
 const write = (dir, name, svg) => fs.writeFileSync(path.join(dir, name), svg)
@@ -302,11 +302,20 @@ const sess = [
   { id: 's3', pid: 3, name: 'Padelbor community features', project: 'padelbor', entry: 'cli', status: 'idle', updatedAt: -240000, startedAt: 0, isSelf: false },
 ]
 const SW = 520
-const sessCards = sess.map((s, i) => nest(uniq(sessionSvg(SW, s, 0), 'x' + i), 0, i * 66)).join('\n')
+const parts = []
+let y = 0
+const put = (svg, h, k) => {
+  parts.push(nest(uniq(svg, k), 0, y))
+  y += h
+}
+put(sectionSvg(SW, 'SESSIONS', '2 working · 1 idle', (2 / 3) * 100), 46, 'h1')
+sess.forEach((x, i) => put(sessionSvg(SW, x, 0, 0), 84, 's' + i))
+put(sectionSvg(SW, 'SUBAGENTS', '1 / 3 finished', (1 / 3) * 100), 46, 'h2')
+list.forEach((r, i) => put(agentSvg(SW, r, 0, 0), 108, 'g' + i))
 write(
   outMod,
   'sessions.svg',
-  `<svg xmlns="http://www.w3.org/2000/svg" width="${SW}" height="${sess.length * 66 - 8}" viewBox="0 0 ${SW} ${sess.length * 66 - 8}" role="img" aria-label="The sessions panel: every Claude Code session on the machine with its status">\n${sessCards}\n</svg>\n`,
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${SW}" height="${y}" viewBox="0 0 ${SW} ${y}" role="img" aria-label="The side panel: a sessions section and a subagents section, each with an overview progress bar">\n${parts.join('\n')}\n</svg>\n`,
 )
 
 console.log('built:', [...fs.readdirSync(outRoot).map(f => 'docs/' + f), ...fs.readdirSync(outMod).map(f => 'plugins/live-status/docs/' + f)].join(', '))

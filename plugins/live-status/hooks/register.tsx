@@ -496,8 +496,8 @@ const ago = (ms: number): string => {
   return m < 60 ? `${m}m ago` : `${Math.floor(m / 60)}h ago`
 }
 
-const sessionSvg = (W: number, s: SessionRow, at: number): string => {
-  const H = 58
+const sessionSvg = (W: number, s: SessionRow, at: number, nowMs: number): string => {
+  const H = 76
   const PAD = 14
   const busy = s.status === 'busy'
   const lz = busy ? { text: 'WORKING', bg: 'lz-run', fg: 'lz-runt' } : { text: 'IDLE', bg: 'lz-idle', fg: 'lz-idlet' }
@@ -507,6 +507,20 @@ const sessionSvg = (W: number, s: SessionRow, at: number): string => {
   const thisChip = s.isSelf
     ? `<rect class="chip" x="${W - PAD - lzW - thisW - 8}" y="${PAD + 4}" width="${thisW}" height="15" rx="7.5"/><text class="chipt" x="${W - PAD - lzW - thisW / 2 - 8}" y="${PAD + 15}" text-anchor="middle" font-family="${FONT}" font-size="9" font-weight="700" letter-spacing=".6">THIS</text>`
     : ''
+  // Progress: nobody knows how big another session's task is, so a working session
+  // gets an indeterminate sweep, and an idle one a bar that drains as it stays quiet.
+  const barW = W - PAD * 2
+  const barY = H - 20
+  const idleMs = Math.max(0, at - s.updatedAt)
+  const fillW = busy ? 0 : Math.max(0, Math.round(barW * (1 - Math.min(1, idleMs / 600000))))
+  const seg = Math.round(barW * 0.3)
+  const bar = busy
+    ? `<clipPath id="sc"><rect x="${PAD}" y="${barY}" width="${barW}" height="6" rx="3"/></clipPath>
+<g clip-path="url(#sc)"><rect x="${PAD}" y="${barY}" width="${seg}" height="6" rx="3" fill="url(#gOk)" style="animation:ss 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-${((nowMs % 1800) / 1000).toFixed(2)}s"/></g>`
+    : fillW > 0
+      ? `<rect x="${PAD}" y="${barY}" width="${Math.max(5, fillW)}" height="6" rx="3" fill="url(#gDone)"/>`
+      : ''
+  const kf = busy ? `@keyframes ss{0%{transform:translateX(${-seg}px)}100%{transform:translateX(${barW}px)}}` : ''
   const body = `
 <rect class="card" x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="12"${s.isSelf ? ' style="stroke:#FFBC25"' : ''}/>
 <circle class="${busy ? 'dot-run' : 'dot-ok'}" cx="${PAD + 5}" cy="${PAD + 11}" r="4"/>
@@ -514,7 +528,21 @@ const sessionSvg = (W: number, s: SessionRow, at: number): string => {
 ${thisChip}
 <rect class="${lz.bg}" x="${W - PAD - lzW}" y="${PAD + 3}" width="${lzW}" height="17" rx="8.5"/>
 <text class="${lz.fg}" x="${W - PAD - lzW / 2}" y="${PAD + 15}" text-anchor="middle" font-family="${FONT}" font-size="9.5" font-weight="700" letter-spacing=".6">${lz.text}</text>
-<text class="mu" x="${PAD + 20}" y="${PAD + 38}" font-family="${FONT}" font-size="11" font-variant-numeric="tabular-nums">${xml(fitText(meta, 11, W - PAD * 2 - 20))}</text>`
+<text class="mu" x="${PAD + 20}" y="${PAD + 38}" font-family="${FONT}" font-size="11" font-variant-numeric="tabular-nums">${xml(fitText(meta, 11, W - PAD * 2 - 20))}</text>
+<rect class="trk" x="${PAD}" y="${barY}" width="${barW}" height="6" rx="3"/>
+${bar}`
+  return paneSvg(W, H, kf, body)
+}
+
+// A section header: caption left, summary right, and an overview progress bar.
+const sectionSvg = (W: number, title: string, summary: string, pct: number | null, isDone = false): string => {
+  const H = 38
+  const fillW = pct === null ? 0 : Math.max(pct > 0 ? 6 : 0, Math.round((W * Math.min(100, pct)) / 100))
+  const body = `
+<text class="nm" x="0" y="14" font-family="${FONT}" font-size="10.5" font-weight="800" letter-spacing="1.2">${xml(title)}</text>
+<text class="mu" x="${W}" y="14" text-anchor="end" font-family="${FONT}" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">${xml(fitText(summary, 11, W - textWidth(title, 10.5) - 24))}</text>
+<rect class="trk" x="0" y="22" width="${W}" height="7" rx="3.5"/>
+${fillW ? `<rect x="0" y="22" width="${fillW}" height="7" rx="3.5" fill="url(#${isDone ? 'gDone' : 'gOk'})"/>` : ''}`
   return paneSvg(W, H, '', body)
 }
 
@@ -820,18 +848,33 @@ export const register: Register = on => {
             height={46}
           />
           {toggleCompact}
-          {!p.isCompact && <Text dimColor>Sessions · {sessionList.length} ({sessionsWorking} working)</Text>}
+          {!p.isCompact && (
+            <Svg
+              source={sectionSvg(W, 'SESSIONS', `${sessionsWorking} working · ${sessionList.length - sessionsWorking} idle`, sessionList.length ? (sessionsWorking / sessionList.length) * 100 : null)}
+              alt={`Sessions: ${sessionsWorking} of ${sessionList.length} working`}
+              width={W}
+              height={38}
+            />
+          )}
           {!p.isCompact && sessionList.length === 0 && <Text dimColor>No sessions found yet.</Text>}
           {!p.isCompact &&
             sessionList.map(s => (
               <Svg
                 key={s.id}
-                source={sessionSvg(W, s, nowMs)}
+                source={sessionSvg(W, s, nowMs, nowMs)}
                 alt={`${s.name}${s.isSelf ? ' (this session)' : ''}: ${s.status === 'busy' ? 'working' : 'idle'}, ${s.project}, updated ${ago(nowMs - s.updatedAt)}`}
                 width={W}
-                height={58}
+                height={76}
               />
             ))}
+          {!p.isCompact && (
+            <Svg
+              source={sectionSvg(W, 'SUBAGENTS', list.length ? `${finished.length} / ${list.length} finished` : 'none yet', list.length ? (finished.length / list.length) * 100 : null, list.length > 0 && running.length === 0)}
+              alt={`Subagents: ${finished.length} of ${list.length} finished`}
+              width={W}
+              height={38}
+            />
+          )}
           {list.length === 0 && <Text dimColor>No subagents yet. They show up here the moment one starts.</Text>}
           {!p.isCompact && running.length > 0 && <Text dimColor>Working · {running.length}</Text>}
           {!p.isCompact && running.map(card)}
@@ -878,7 +921,7 @@ export const register: Register = on => {
         {toggleCompact}
         {!p.isCompact && sessionList.length > 0 && (
           <Text dimColor>
-            sessions · {sessionList.length} ({sessionsWorking} working)
+            sessions · {sessionsWorking}/{sessionList.length} working {bar(sessionList.length ? (sessionsWorking / sessionList.length) * 100 : 0, 10)}
           </Text>
         )}
         {!p.isCompact &&
@@ -892,6 +935,11 @@ export const register: Register = on => {
               </Text>
             </Text>
           ))}
+        {!p.isCompact && list.length > 0 && (
+          <Text dimColor>
+            subagents · {finished.length}/{list.length} finished {bar((finished.length / list.length) * 100, 10)}
+          </Text>
+        )}
         {list.length === 0 && <Text dimColor>No subagents yet.</Text>}
         {!p.isCompact && running.map(row)}
         {!p.isCompact && finished.length > 0 && toggleDone}
