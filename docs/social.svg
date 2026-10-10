@@ -29,6 +29,7 @@
 .lv-hi{fill:#EB6834!important}.lv-bad{fill:#FF7A78!important}.seg{fill:#282828!important}
 
 .lz-ok{fill:#1E3A2C!important}.lz-okt{fill:#7BE0B0!important}.lz-bad{fill:#4A2323!important}.lz-badt{fill:#FF9C9A!important}.tile{fill:#333333!important}
+.lz-att{fill:#4A3A12!important}.lz-attt{fill:#FFD36B!important}
 .hmono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .hcur{animation:hcur 1.1s steps(1) infinite}
 @keyframes hcur{50%{opacity:0}}
@@ -166,8 +167,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}@keyframes sa_a{0%{transform:translateX(-30px)}100%{transform:translateX(90px)}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes sa_a{0%{transform:translateX(-30px)}100%{transform:translateX(90px)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_a" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_a" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -203,8 +206,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_b" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_b" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>

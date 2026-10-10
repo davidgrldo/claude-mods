@@ -170,7 +170,7 @@ function cardSvg(args: {
   gauges: Gauge[]
   task: TaskView | null
   agents: { rows: AgentRow[]; working: number; more: number }
-  sessions?: { total: number; working: number }
+  sessions?: { total: number; working: number; attention?: number }
   nowMs: number
 }): { svg: string; H: number } {
   const { W, stack, name, fx, cost, state, detail, isRunning, gauges, task: tv, agents: ag, sessions: ss, nowMs } = args
@@ -196,7 +196,7 @@ function cardSvg(args: {
   const chipX = PAD + 20 + Math.round(nameW) + 8
   const known = fx !== ''
   const costX = PAD + leftW
-  const sessText = ss && ss.total > 1 ? `${ss.total} sessions · ${ss.working} working` : ''
+  const sessText = ss && ss.total > 1 ? `${ss.total} sessions · ${ss.working} working${ss.attention ? ` · ${ss.attention} need you` : ''}` : ''
   const stateText = state.toUpperCase()
   const lzW = Math.round(textWidth(stateText, 9.5) + 16 + stateText.length * 0.6)
   const left = `
@@ -345,8 +345,10 @@ ${rail}
 
 const PANE_CSS = `${CSS}
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}`
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}`
 
 const DEFS = `<defs>
 <linearGradient id="gOk" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
@@ -443,6 +445,14 @@ ${sheen}`
 
 const DEAD_AFTER_MS = 24 * 3600 * 1000
 
+// An idle session that stopped recently is most likely waiting for you (a turn just
+// finished); one that has been quiet for longer is background noise and is hidden.
+// The registry only says busy or idle, so "needs you" is that recency, not a flag.
+const ATTENTION_MS = 30 * 60 * 1000
+
+const needsYou = (s: SessionRow, at: number): boolean => s.status === 'idle' && !s.isSelf && at - s.updatedAt <= ATTENTION_MS
+const isShown = (s: SessionRow, at: number): boolean => s.isSelf || s.status === 'busy' || at - s.updatedAt <= ATTENTION_MS
+
 const lastSegment = (p: string): string => p.split(/[\\/]/).filter(Boolean).pop() || p
 
 async function readSessions($: EngineInterface): Promise<SessionRow[]> {
@@ -500,7 +510,12 @@ const sessionSvg = (W: number, s: SessionRow, at: number, nowMs: number): string
   const H = 76
   const PAD = 14
   const busy = s.status === 'busy'
-  const lz = busy ? { text: 'WORKING', bg: 'lz-run', fg: 'lz-runt' } : { text: 'IDLE', bg: 'lz-idle', fg: 'lz-idlet' }
+  const attention = needsYou(s, at)
+  const lz = busy
+    ? { text: 'WORKING', bg: 'lz-run', fg: 'lz-runt' }
+    : attention
+      ? { text: 'NEEDS YOU', bg: 'lz-att', fg: 'lz-attt' }
+      : { text: 'IDLE', bg: 'lz-idle', fg: 'lz-idlet' }
   const lzW = Math.round(textWidth(lz.text, 9.5) + 16 + lz.text.length * 0.6)
   const thisW = s.isSelf ? Math.round(textWidth('THIS', 9) + 14) : 0
   const meta = `${s.entry} · ${s.project} · ${ago(at - s.updatedAt)}`
@@ -512,13 +527,13 @@ const sessionSvg = (W: number, s: SessionRow, at: number, nowMs: number): string
   const barW = W - PAD * 2
   const barY = H - 20
   const idleMs = Math.max(0, at - s.updatedAt)
-  const fillW = busy ? 0 : Math.max(0, Math.round(barW * (1 - Math.min(1, idleMs / 600000))))
+  const fillW = busy ? 0 : Math.max(0, Math.round(barW * (1 - Math.min(1, idleMs / ATTENTION_MS))))
   const seg = Math.round(barW * 0.3)
   const bar = busy
     ? `<clipPath id="sc"><rect x="${PAD}" y="${barY}" width="${barW}" height="6" rx="3"/></clipPath>
 <g clip-path="url(#sc)"><rect x="${PAD}" y="${barY}" width="${seg}" height="6" rx="3" fill="url(#gOk)" style="animation:ss 1.8s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-${((nowMs % 1800) / 1000).toFixed(2)}s"/></g>`
     : fillW > 0
-      ? `<rect x="${PAD}" y="${barY}" width="${Math.max(5, fillW)}" height="6" rx="3" fill="url(#gDone)"/>`
+      ? `<rect x="${PAD}" y="${barY}" width="${Math.max(5, fillW)}" height="6" rx="3" fill="url(#${attention ? 'gOk' : 'gDone'})"/>`
       : ''
   const kf = busy ? `@keyframes ss{0%{transform:translateX(${-seg}px)}100%{transform:translateX(${barW}px)}}` : ''
   const body = `
@@ -807,8 +822,11 @@ export const register: Register = on => {
     const nowMs = await $.clock.now()
     const running = list.filter(r => r.status === 'running').reverse()
     const finished = list.filter(r => r.status !== 'running').reverse()
-    const sessionList = await read($, sessions)
+    const everySession = await read($, sessions)
+    const sessionList = everySession.filter(s => isShown(s, nowMs))
+    const sessionsHidden = everySession.length - sessionList.length
     const sessionsWorking = sessionList.filter(s => s.status === 'busy').length
+    const sessionsNeed = sessionList.filter(s => needsYou(s, nowMs)).length
 
     const toggleCompact = (
       <Button
@@ -850,8 +868,8 @@ export const register: Register = on => {
           {toggleCompact}
           {!p.isCompact && (
             <Svg
-              source={sectionSvg(W, 'SESSIONS', `${sessionsWorking} working · ${sessionList.length - sessionsWorking} idle`, sessionList.length ? (sessionsWorking / sessionList.length) * 100 : null)}
-              alt={`Sessions: ${sessionsWorking} of ${sessionList.length} working`}
+              source={sectionSvg(W, 'SESSIONS', `${sessionsWorking} working${sessionsNeed ? ` · ${sessionsNeed} need you` : ''}${sessionsHidden ? ` · ${sessionsHidden} idle hidden` : ''}`, sessionList.length ? (sessionsWorking / sessionList.length) * 100 : null)}
+              alt={`Sessions: ${sessionsWorking} of ${sessionList.length} working, ${sessionsNeed} need you, ${sessionsHidden} idle hidden`}
               width={W}
               height={38}
             />
@@ -921,13 +939,14 @@ export const register: Register = on => {
         {toggleCompact}
         {!p.isCompact && sessionList.length > 0 && (
           <Text dimColor>
-            sessions · {sessionsWorking}/{sessionList.length} working {bar(sessionList.length ? (sessionsWorking / sessionList.length) * 100 : 0, 10)}
+            sessions · {sessionsWorking}/{sessionList.length} working{sessionsNeed ? ` · ${sessionsNeed} need you` : ''}{sessionsHidden ? ` · ${sessionsHidden} hidden` : ''}{' '}
+            {bar(sessionList.length ? (sessionsWorking / sessionList.length) * 100 : 0, 10)}
           </Text>
         )}
         {!p.isCompact &&
           sessionList.map(s => (
             <Text key={s.id} wrap="truncate-end">
-              <Text color={s.status === 'busy' ? BLUE : GREEN}>{s.status === 'busy' ? '●' : '○'} </Text>
+              <Text color={s.status === 'busy' ? BLUE : needsYou(s, nowMs) ? AMBER : GREEN}>{s.status === 'busy' ? '●' : needsYou(s, nowMs) ? '!' : '○'} </Text>
               {s.name}
               <Text dimColor>
                 {' '}
@@ -960,8 +979,13 @@ export const register: Register = on => {
     const fx = await read($, effort)
     const tv = taskView(await read($, task), await read($, crew))
     const runList = await read($, runs)
-    const allSessions = await read($, sessions)
-    const sessionSummary = { total: allSessions.length, working: allSessions.filter(s => s.status === 'busy').length }
+    const shownAt = await $.clock.now()
+    const allSessions = (await read($, sessions)).filter(s => isShown(s, shownAt))
+    const sessionSummary = {
+      total: allSessions.length,
+      working: allSessions.filter(s => s.status === 'busy').length,
+      attention: allSessions.filter(s => needsYou(s, shownAt)).length,
+    }
     const crewCount = runList.length
 
     // Agents go inline when the panel has no room (narrow window) or is not open.

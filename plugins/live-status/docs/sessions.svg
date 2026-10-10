@@ -13,8 +13,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_h1" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_h1" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -40,8 +42,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}@keyframes ss_s0{0%{transform:translateX(-148px)}100%{transform:translateX(492px)}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes ss_s0{0%{transform:translateX(-148px)}100%{transform:translateX(492px)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_s0" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_s0" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -73,8 +77,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}@keyframes ss_s1{0%{transform:translateX(-148px)}100%{transform:translateX(492px)}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes ss_s1{0%{transform:translateX(-148px)}100%{transform:translateX(492px)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_s1" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_s1" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -106,8 +112,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_s2" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_s2" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -119,11 +127,11 @@
 <circle class="dot-ok" cx="19" cy="25" r="4"/>
 <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Padelbor community features</text>
 
-<rect class="lz-idle" x="461" y="17" width="45" height="17" rx="8.5"/>
-<text class="lz-idlet" x="483.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">IDLE</text>
+<rect class="lz-att" x="429" y="17" width="77" height="17" rx="8.5"/>
+<text class="lz-attt" x="467.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">NEEDS YOU</text>
 <text class="mu" x="34" y="52" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-variant-numeric="tabular-nums">cli · padelbor · 4m ago</text>
 <rect class="trk" x="14" y="56" width="492" height="6" rx="3"/>
-<rect x="14" y="56" width="295" height="6" rx="3" fill="url(#gDone_s2)"/></svg>
+<rect x="14" y="56" width="426" height="6" rx="3" fill="url(#gOk_s2)"/></svg>
 <svg x="0" y="298" width="520" height="38" viewBox="0 0 520 38"><style>
 .card{fill:#F8F9FB;stroke:#D0D6DD}.nm{fill:#333333}.mu{fill:#626B79}.pc{fill:#232933}
 .trk{fill:#FFF4D6}.tick{fill:#626B79}.chip{fill:#F1EBFD}.chipt{fill:#5B3BB0}.chipx{fill:none;stroke:#7D8695}.rail{fill:#EDF0F2}
@@ -138,8 +146,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_h2" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_h2" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -165,8 +175,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}@keyframes sa_g0{0%{transform:translateX(-30px)}100%{transform:translateX(167px)}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes sa_g0{0%{transform:translateX(-30px)}100%{transform:translateX(167px)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_g0" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_g0" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -202,8 +214,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}@keyframes sa_g1{0%{transform:translateX(-30px)}100%{transform:translateX(349px)}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}@keyframes sa_g1{0%{transform:translateX(-30px)}100%{transform:translateX(349px)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_g1" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_g1" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>
@@ -239,8 +253,10 @@
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
 .lz-ok{fill:#E3F5EB}.lz-okt{fill:#1F7A4D}.lz-bad{fill:#FDECEC}.lz-badt{fill:#C62F2F}.tile{fill:#EDF0F2}
+.lz-att{fill:#FFF4D6}.lz-attt{fill:#8A5A00}
 @media (prefers-color-scheme: dark){
-.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}}
+.lz-ok{fill:#1E3A2C}.lz-okt{fill:#7BE0B0}.lz-bad{fill:#4A2323}.lz-badt{fill:#FF9C9A}.tile{fill:#333333}
+.lz-att{fill:#4A3A12}.lz-attt{fill:#FFD36B}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style><defs>
 <linearGradient id="gOk_g2" x1="0" x2="1"><stop offset="0" stop-color="#FFBC25"/><stop offset="1" stop-color="#FFA500"/></linearGradient>
 <linearGradient id="gWarn_g2" x1="0" x2="1"><stop offset="0" stop-color="#EB6834"/><stop offset="1" stop-color="#F58A5B"/></linearGradient>

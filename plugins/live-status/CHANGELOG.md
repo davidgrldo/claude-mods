@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.3
+- Sessions idle for more than 30 minutes are hidden. A session that went idle more recently (most likely waiting for you) stays, marked `NEEDS YOU`.
+
 ## 0.3.2
 - Finished subagents are collapsed by default; opening them shows the latest eight.
 
