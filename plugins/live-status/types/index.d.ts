@@ -59,6 +59,8 @@ export type SessionRow = {
   updatedAt: number
   startedAt: number
   isSelf: boolean
+  // The task that session reports (see the `task` tool); absent when it reports none.
+  task?: { title: string; done: number; total: number; current: string; isFinished: boolean }
 }
 
 declare module 'claude-code' {
@@ -74,6 +76,7 @@ declare module 'claude-code' {
       sessions: SessionRow[]
       panel: Panel
       now: number
+      slow: number
       isHidden: boolean
       warned: string
     }

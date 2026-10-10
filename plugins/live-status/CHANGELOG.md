@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+- Every session card shows the real progress of its task (`3/6 · 50%`), published by that session's own `task` reports. Sessions that report nothing show an empty bar and a note instead of a made-up percentage.
+- Session cards no longer draw a freshness bar.
+- Lighter on CPU and memory: adaptive polling (5 s when something moves, 15 s idle), file reads cached by modification time, a slow redraw clock for the panel, fewer retained runs, and no shimmer on the band's bars.
+
 ## 0.3.4
 - Side panel is static: plain progress bars, no sweeping or shimmer animation, so it stays light. (The band above the prompt keeps its motion while a turn runs.)
 - Session bars show how fresh the last activity is.

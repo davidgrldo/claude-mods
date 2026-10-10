@@ -12,7 +12,6 @@
 .lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
-@keyframes sh0{0%{transform:translateX(-30px)}100%{transform:translateX(54px)}}
 @keyframes rl{0%{transform:translateX(-205px)}100%{transform:translateX(732px)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
 <defs>
@@ -43,8 +42,7 @@
   <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">42%</text>
   <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
   <rect x="325" y="33" width="54" height="6" rx="3" fill="url(#gOk)"/>
-  <clipPath id="cl0"><rect x="325" y="33" width="54" height="6" rx="3"/></clipPath>
-<g clip-path="url(#cl0)"><rect x="325" y="33" width="30" height="6" fill="url(#gSheen)" style="animation:sh0 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
   <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">420k of 1.0M</text>
 </g>
 <g>

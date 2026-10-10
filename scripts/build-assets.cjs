@@ -297,8 +297,8 @@ write(outMod, 'agents-3.svg', agentSvg(520, list[2], 0, 0))
 
 // All sessions, as the side panel lists them.
 const sess = [
-  { id: 's1', pid: 1, name: 'Mod redesign', project: 'claude-mods', entry: 'desktop', status: 'busy', updatedAt: -4000, startedAt: 0, isSelf: true },
-  { id: 's2', pid: 2, name: 'API migration', project: 'api', entry: 'desktop', status: 'busy', updatedAt: -12000, startedAt: 0, isSelf: false },
+  { id: 's1', pid: 1, name: 'Mod redesign', project: 'claude-mods', entry: 'desktop', status: 'busy', updatedAt: -4000, startedAt: 0, isSelf: true, task: { title: 'Ship the redesign', done: 3, total: 5, current: 'Test responsive', isFinished: false } },
+  { id: 's2', pid: 2, name: 'API migration', project: 'api', entry: 'desktop', status: 'busy', updatedAt: -12000, startedAt: 0, isSelf: false, task: { title: 'Move endpoints to v2', done: 2, total: 6, current: 'Update the client', isFinished: false } },
   { id: 's3', pid: 3, name: 'Docs site', project: 'docs', entry: 'cli', status: 'idle', updatedAt: -240000, startedAt: 0, isSelf: false },
 ]
 const SW = 520
@@ -309,7 +309,7 @@ const put = (svg, h, k) => {
   y += h
 }
 put(sectionSvg(SW, 'SESSIONS', '2 working · 1 idle', (2 / 3) * 100), 46, 'h1')
-sess.forEach((x, i) => put(sessionSvg(SW, x, 0, 0), 84, 's' + i))
+sess.forEach((x, i) => put(sessionSvg(SW, x, 0, 0), 104, 's' + i))
 put(sectionSvg(SW, 'SUBAGENTS', '1 / 3 finished', (1 / 3) * 100), 46, 'h2')
 list.forEach((r, i) => put(agentSvg(SW, r, 0, 0), 108, 'g' + i))
 write(

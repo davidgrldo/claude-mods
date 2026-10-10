@@ -16,6 +16,7 @@ const runs = atom({ plugin: 'live-status', key: 'runs' } as const, [])
 const sessions = atom({ plugin: 'live-status', key: 'sessions' } as const, [])
 const panel = atom({ plugin: 'live-status', key: 'panel' } as const, { isCompact: false, isDoneCollapsed: true })
 const now = atom({ plugin: 'live-status', key: 'now' } as const, 0)
+const slow = atom({ plugin: 'live-status', key: 'slow' } as const, 0)
 
 const PANE = 'live-agents'
 
@@ -138,6 +139,10 @@ const fitText = (s: string, size: number, maxW: number): string => {
   return out + '…'
 }
 
+// Motion budget: the band keeps one light sweep (the bottom rail) while a turn runs;
+// the shimmer on the bars costs more for little, so it is off.
+const BAND_SHEEN = false
+
 type AgentRow = { name: string; status: 'running' | 'done' | 'failed'; ctx: number }
 
 type Gauge = { label: string; pct: number | null; caption: string; sheen: boolean }
@@ -227,7 +232,7 @@ function cardSvg(args: {
       .map(({ tx }) => `<rect class="tick" x="${tx}" y="${y + 15}" width="1" height="8" rx=".5" opacity=".55"/>`)
       .join('')
     let sheen = ''
-    if (isRunning && g.sheen && fillW > 12) {
+    if (BAND_SHEEN && isRunning && g.sheen && fillW > 12) {
       keyframes.push(`@keyframes sh${i}{0%{transform:translateX(-30px)}100%{transform:translateX(${fillW}px)}}`)
       sheen = `<clipPath id="cl${i}"><rect x="${x}" y="${y + 16}" width="${fillW}" height="6" rx="3"/></clipPath>
 <g clip-path="url(#cl${i})"><rect x="${x}" y="${y + 16}" width="30" height="6" fill="url(#gSheen)" style="animation:sh${i} 1.6s ${EASE} infinite;animation-delay:${phase(1.6)}"/></g>`
@@ -263,7 +268,7 @@ function cardSvg(args: {
       }
     }
     let sheen = ''
-    if (isRunning && !tv.isFinished && fillW > 16) {
+    if (BAND_SHEEN && isRunning && !tv.isFinished && fillW > 16) {
       keyframes.push(`@keyframes sht{0%{transform:translateX(-36px)}100%{transform:translateX(${fillW}px)}}`)
       sheen = `<clipPath id="clt"><rect x="${tx}" y="${ty + 16}" width="${fillW}" height="8" rx="4"/></clipPath>
 <g clip-path="url(#clt)"><rect x="${tx}" y="${ty + 16}" width="36" height="8" fill="url(#gSheen)" style="animation:sht 1.6s ${EASE} infinite;animation-delay:${phase(1.6)}"/></g>`
@@ -440,6 +445,11 @@ ${sheen}`
 
 const DEAD_AFTER_MS = 24 * 3600 * 1000
 
+// Parsed registry and progress files, keyed by name and file time: a poll only reads
+// the files that changed since the last one.
+const regCache = new Map<string, { m: number; raw: Record<string, unknown> }>()
+const progCache = new Map<string, { m: number; raw: Record<string, unknown> }>()
+
 // An idle session that stopped recently is most likely waiting for you (a turn just
 // finished); one that has been quiet for longer is background noise and is hidden.
 // The registry only says busy or idle, so "needs you" is that recency, not a flag.
@@ -450,9 +460,59 @@ const isShown = (s: SessionRow, at: number): boolean => s.isSelf || s.status ===
 
 const lastSegment = (p: string): string => p.split(/[\\/]/).filter(Boolean).pop() || p
 
+async function homeDir($: EngineInterface): Promise<string> {
+  return ((await $.env.get('USERPROFILE')) || (await $.env.get('HOME')) || '').replace(/\\/g, '/')
+}
+
+// Each session publishes the progress of its own task to
+// ~/.claude/live-status/progress/<sessionId>.json, so the others can draw it.
+// Only the task's title, step counts and current step are written.
+async function publishProgress($: EngineInterface): Promise<void> {
+  try {
+    const home = await homeDir($)
+    if (!home) return
+    const id = await $.session.id()
+    const tv = taskView(await read($, task), await read($, crew))
+    const at = await $.clock.now()
+    const body = tv ? { title: tv.title, done: tv.done, total: tv.total, current: tv.current, isFinished: tv.isFinished, updatedAt: at } : { total: 0, updatedAt: at }
+    await $.fs.write(`${home}/.claude/live-status/progress/${id}.json`, JSON.stringify(body))
+  } catch {
+    // Not writable: other sessions simply see no progress from this one.
+  }
+}
+
+async function readProgress($: EngineInterface, home: string, id: string, at: number): Promise<SessionRow['task']> {
+  try {
+    const path = `${home}/.claude/live-status/progress/${id}.json`
+    const st = await $.fs.stat(path)
+    const hit = progCache.get(id)
+    let raw: Record<string, unknown>
+    if (hit && hit.m === st.mtimeMs) {
+      raw = hit.raw
+    } else {
+      raw = JSON.parse((await $.fs.read(path)) as string) as Record<string, unknown>
+      progCache.set(id, { m: st.mtimeMs, raw })
+    }
+    const total = Number(raw.total ?? 0)
+    if (!(total > 0) || at - Number(raw.updatedAt ?? 0) > DEAD_AFTER_MS) return undefined
+    return {
+      title: typeof raw.title === 'string' ? raw.title : '',
+      done: Math.max(0, Math.min(total, Number(raw.done ?? 0))),
+      total,
+      current: typeof raw.current === 'string' ? raw.current : '',
+      isFinished: raw.isFinished === true,
+    }
+  } catch {
+    return undefined
+  }
+}
+
+const sessionSig = (rows: SessionRow[]): string =>
+  JSON.stringify(rows.map(r => [r.id, r.status, r.updatedAt, r.name, r.task ? [r.task.done, r.task.total, r.task.current, r.task.isFinished] : 0]))
+
 async function readSessions($: EngineInterface): Promise<SessionRow[]> {
   try {
-    const home = ((await $.env.get('USERPROFILE')) || (await $.env.get('HOME')) || '').replace(/\\/g, '/')
+    const home = await homeDir($)
     if (!home) return []
     const dir = `${home}/.claude/sessions`
     const entries = await $.fs.list(dir)
@@ -462,7 +522,14 @@ async function readSessions($: EngineInterface): Promise<SessionRow[]> {
     for (const en of entries) {
       if (!/^\d+\.json$/.test(en.name)) continue
       try {
-        const raw = JSON.parse((await $.fs.read(`${dir}/${en.name}`)) as string) as Record<string, unknown>
+        const hit = regCache.get(en.name)
+        let raw: Record<string, unknown>
+        if (hit && hit.m === en.mtimeMs) {
+          raw = hit.raw
+        } else {
+          raw = JSON.parse((await $.fs.read(`${dir}/${en.name}`)) as string) as Record<string, unknown>
+          regCache.set(en.name, { m: en.mtimeMs, raw })
+        }
         const id = typeof raw.sessionId === 'string' ? raw.sessionId : ''
         if (!id) continue
         const updatedAt = Number(raw.updatedAt ?? raw.statusUpdatedAt ?? raw.startedAt ?? 0)
@@ -483,6 +550,12 @@ async function readSessions($: EngineInterface): Promise<SessionRow[]> {
         // A half-written or unreadable entry: skip it, the next poll gets it.
       }
     }
+    for (const k of [...regCache.keys()]) if (!entries.some(en => en.name === k)) regCache.delete(k)
+    for (const r of rows) {
+      if (r.isSelf) continue
+      const progress = await readProgress($, home, r.id, at)
+      if (progress) r.task = progress
+    }
     // This session first, then working ones, then the most recently active.
     return rows.sort(
       (a, b) =>
@@ -502,7 +575,8 @@ const ago = (ms: number): string => {
 }
 
 const sessionSvg = (W: number, s: SessionRow, at: number, nowMs: number): string => {
-  const H = 76
+  void nowMs
+  const H = 96
   const PAD = 14
   const busy = s.status === 'busy'
   const attention = needsYou(s, at)
@@ -517,15 +591,26 @@ const sessionSvg = (W: number, s: SessionRow, at: number, nowMs: number): string
   const thisChip = s.isSelf
     ? `<rect class="chip" x="${W - PAD - lzW - thisW - 8}" y="${PAD + 4}" width="${thisW}" height="15" rx="7.5"/><text class="chipt" x="${W - PAD - lzW - thisW / 2 - 8}" y="${PAD + 15}" text-anchor="middle" font-family="${FONT}" font-size="9" font-weight="700" letter-spacing=".6">THIS</text>`
     : ''
-  // Progress: nobody knows how big another session's task is, so the bar shows how
-  // fresh its last activity is (full right after an update, empty after 30 minutes).
-  // Static on purpose: the panel redraws often and should stay light.
+
+  // Progress is the task the session reports through the `task` tool. A session that
+  // reports none gets an empty bar and a plain note, never an invented percentage.
+  const tk = s.task && s.task.total > 0 ? s.task : null
+  const pct = tk ? Math.round((tk.done / tk.total) * 100) : 0
   const barW = W - PAD * 2
   const barY = H - 20
-  const ageMs = Math.max(0, at - s.updatedAt)
-  const fillW = Math.max(0, Math.round(barW * (1 - Math.min(1, ageMs / ATTENTION_MS))))
-  const bar = fillW > 0 ? `<rect x="${PAD}" y="${barY}" width="${Math.max(5, fillW)}" height="6" rx="3" fill="url(#${busy || attention ? 'gOk' : 'gDone'})"/>` : ''
-  const kf = ''
+  const fillW = tk && pct > 0 ? Math.max(6, Math.round((barW * pct) / 100)) : 0
+  const right = tk ? `${tk.done}/${tk.total}  ·  ${pct}%` : ''
+  const head = tk
+    ? `${tk.title}${tk.current && !tk.isFinished ? '  ›  ' + tk.current : ''}`
+    : busy
+      ? 'working · no task progress reported'
+      : 'no task reported'
+  const segs: string[] = []
+  if (tk && tk.total <= 16) {
+    for (let i = 1; i < tk.total; i++) {
+      segs.push(`<rect class="seg" x="${PAD + Math.round((barW * i) / tk.total) - 1}" y="${barY}" width="2" height="6"/>`)
+    }
+  }
   const body = `
 <rect class="card" x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="12"${s.isSelf ? ' style="stroke:#FFBC25"' : ''}/>
 <circle class="${busy ? 'dot-run' : 'dot-ok'}" cx="${PAD + 5}" cy="${PAD + 11}" r="4"/>
@@ -534,9 +619,12 @@ ${thisChip}
 <rect class="${lz.bg}" x="${W - PAD - lzW}" y="${PAD + 3}" width="${lzW}" height="17" rx="8.5"/>
 <text class="${lz.fg}" x="${W - PAD - lzW / 2}" y="${PAD + 15}" text-anchor="middle" font-family="${FONT}" font-size="9.5" font-weight="700" letter-spacing=".6">${lz.text}</text>
 <text class="mu" x="${PAD + 20}" y="${PAD + 38}" font-family="${FONT}" font-size="11" font-variant-numeric="tabular-nums">${xml(fitText(meta, 11, W - PAD * 2 - 20))}</text>
+<text class="${tk ? 'nm' : 'mu'}" x="${PAD}" y="${H - 27}" font-family="${FONT}" font-size="10" font-weight="${tk ? 600 : 500}">${xml(fitText(head, 10, barW - (right ? textWidth(right, 11) + 16 : 0)))}</text>
+${right ? `<text class="pc" x="${W - PAD}" y="${H - 27}" text-anchor="end" font-family="${FONT}" font-size="11" font-weight="700" font-variant-numeric="tabular-nums">${xml(right)}</text>` : ''}
 <rect class="trk" x="${PAD}" y="${barY}" width="${barW}" height="6" rx="3"/>
-${bar}`
-  return paneSvg(W, H, kf, body)
+${fillW ? `<rect x="${PAD}" y="${barY}" width="${fillW}" height="6" rx="3" fill="url(#${tk && tk.isFinished ? 'gDone' : 'gOk'})"/>` : ''}
+${segs.join('')}`
+  return paneSvg(W, H, '', body)
 }
 
 // A section header: caption left, summary right, and an overview progress bar.
@@ -612,34 +700,38 @@ export const register: Register = on => {
     // session.measure.
     let ticks = 0
     let lastSessionSig = ''
+    let othersBusy = false
     // First read right away, so the panel is not empty for the first seconds.
     const firstRows = await readSessions($)
-    lastSessionSig = JSON.stringify(firstRows.map(r => [r.id, r.status, r.updatedAt, r.name]))
+    lastSessionSig = sessionSig(firstRows)
+    othersBusy = firstRows.some(r => !r.isSelf && r.status === 'busy')
+    void publishProgress($)
     await update($, sessions, () => firstRows)
     $.clock.every(1000, () => {
       void (async () => {
         ticks += 1
-        if (ticks % 3 === 0) {
-          // Other sessions: re-read their registry entries, redraw only on a change.
+        const t = await read($, turn)
+        // Cheap by design. Other sessions: polled every 5 s while something moves (a turn
+        // here, or a working session elsewhere), every 15 s otherwise, and only files
+        // that changed are read. The panel redraws on that slow clock. Usage is
+        // re-read every 15 s, since the engine also reports changes by itself.
+        const every = t.isRunning || othersBusy ? 5 : 15
+        if (ticks % every === 0) {
           const rows = await readSessions($)
-          const sig = JSON.stringify(rows.map(r => [r.id, r.status, r.updatedAt, r.name]))
+          othersBusy = rows.some(r => !r.isSelf && r.status === 'busy')
+          const sig = sessionSig(rows)
           if (sig !== lastSessionSig) {
             lastSessionSig = sig
             await update($, sessions, () => rows)
-            const at = await $.clock.now()
-            await update($, now, () => at)
           }
+          const at = await $.clock.now()
+          await update($, slow, () => at)
         }
-        const t = await read($, turn)
-        if (t.isRunning) {
-          if (ticks % 5 === 0) await refresh($)
-        } else if (ticks % 15 !== 0) {
-          return
-        } else {
-          await refresh($)
+        if (t.isRunning || ticks % 15 === 0) {
+          if (ticks % 15 === 0) await refresh($)
+          const at = await $.clock.now()
+          await update($, now, () => at)
         }
-        const at = await $.clock.now()
-        await update($, now, () => at)
       })()
     })
 
@@ -703,11 +795,13 @@ export const register: Register = on => {
     })
     const at = await $.clock.now()
     await update($, now, () => at)
+    await publishProgress($)
     return { result: next ? `ok: ${next.done}/${next.total}` : 'ok' }
   })
 
   on('turn.start', async ($, e, next) => {
     await update($, crew, () => ({ spawned: 0, done: 0 }))
+    await publishProgress($)
     await update($, task, prev => (prev?.isFinished ? null : prev))
     const at = await $.clock.now()
     await update($, turn, t => ({ ...NO_TURN, isRunning: true, startedAt: at, agents: t.agents }))
@@ -760,6 +854,7 @@ export const register: Register = on => {
     if (started.deny === undefined) {
       await update($, turn, t => ({ ...t, agents: t.agents + 1 }))
       await update($, crew, c => ({ ...c, spawned: c.spawned + 1 }))
+      await publishProgress($)
       const at = await $.clock.now()
       await update($, runs, list => {
         const run: Run = {
@@ -775,7 +870,7 @@ export const register: Register = on => {
           tokens: 0,
           steps: 0,
         }
-        return [...list.filter(r => r.id !== run.id), run].slice(-100)
+        return [...list.filter(r => r.id !== run.id), run].slice(-40)
       })
       await update($, now, () => at)
     }
@@ -787,6 +882,7 @@ export const register: Register = on => {
     if (e.agentId) {
       await update($, turn, t => ({ ...t, agents: Math.max(0, t.agents - 1) }))
       await update($, crew, c => ({ ...c, done: Math.min(c.spawned, c.done + 1) }))
+      await publishProgress($)
       const agentId = e.agentId
       await update($, runs, list =>
         list.map(r => (r.agentId === agentId ? { ...r, status: e.reason === 'answer' ? ('done' as const) : ('failed' as const), endedAt: at } : r)),
@@ -808,12 +904,16 @@ export const register: Register = on => {
     const { Box, Text, Button } = ui
     const list = await read($, runs)
     const p: Panel = await read($, panel)
-    const at = Math.max((await read($, now)) || 0, ...list.map(r => r.startedAt), 0)
     const nowMs = await $.clock.now()
+    await read($, slow) // the panel redraws on this slow clock, not every second
+    const at = nowMs
     const running = list.filter(r => r.status === 'running').reverse()
     const finished = list.filter(r => r.status !== 'running').reverse()
     const everySession = await read($, sessions)
-    const sessionList = everySession.filter(s => isShown(s, nowMs))
+    const own = taskView(await read($, task), await read($, crew))
+    const sessionList = everySession
+      .filter(s => isShown(s, nowMs))
+      .map(s => (s.isSelf && own ? { ...s, task: { title: own.title, done: own.done, total: own.total, current: own.current, isFinished: own.isFinished } } : s))
     const sessionsHidden = everySession.length - sessionList.length
     const sessionsWorking = sessionList.filter(s => s.status === 'busy').length
     const sessionsNeed = sessionList.filter(s => needsYou(s, nowMs)).length
@@ -872,7 +972,7 @@ export const register: Register = on => {
                 source={sessionSvg(W, s, nowMs, nowMs)}
                 alt={`${s.name}${s.isSelf ? ' (this session)' : ''}: ${s.status === 'busy' ? 'working' : 'idle'}, ${s.project}, updated ${ago(nowMs - s.updatedAt)}`}
                 width={W}
-                height={76}
+                height={96}
               />
             ))}
           {!p.isCompact && (

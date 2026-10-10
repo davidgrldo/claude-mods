@@ -84,8 +84,13 @@ The side panel lists **every live session on your machine**, so you can keep an 
 
 ![Sessions panel](docs/sessions.svg)
 
-It reads the small registry entries Claude Code keeps in `~/.claude/sessions/<pid>.json` (name, folder, status, last update).
-Nothing else: **no transcripts, no keys, no network.** Entries untouched for 24 hours are treated as dead and hidden. Per-session
+Each card shows the task that session is working on, as `3/6 · 50%` with a segmented bar. Progress comes from the `task` tool
+(see *Task progress*): every session that has live-status installed publishes its own task to
+`~/.claude/live-status/progress/<session>.json`, and the others read it. A session that reports nothing shows an empty bar and
+the note "no task progress reported", never a made-up percentage.
+
+It also reads the small registry entries Claude Code keeps in `~/.claude/sessions/<pid>.json` (name, folder, status, last update).
+The only thing it writes is its own progress file (task title, step counts, current step). **No transcripts, no keys, no network.** Entries untouched for 24 hours are treated as dead and hidden. Per-session
 model and context are not in that registry, so other sessions show status and activity only; your own session shows the full card.
 
 ## Task progress
@@ -115,6 +120,16 @@ and once with finished: true at the end.
 
 Motion is limited to a slow sheen on the context and task bars and a travelling highlight on the bottom rail, only while
 a turn is running. It stops under `prefers-reduced-motion`, and light and dark follow the system theme.
+
+## Light on your machine
+
+The mod is built to stay out of the way:
+
+- **Event-driven first.** Context, limits and cost arrive from the engine when they change; nothing polls for them while idle beyond one read every 15 s.
+- **Adaptive polling.** Other sessions are checked every 5 s while something is moving (a turn here, or a working session elsewhere) and every 15 s otherwise, and only files whose modification time changed are read again.
+- **A slow clock for the panel.** The side panel redraws every 5 to 15 s, not every second; only the band above the prompt ticks each second, and only while a turn runs.
+- **Small and bounded.** At most 40 subagent runs are kept, sessions idle for a day are dropped, and the panel has no animation.
+- **Motion budget.** While a turn runs the band draws a single light sweep along its bottom edge; it stops under `prefers-reduced-motion`.
 
 ## Customize
 

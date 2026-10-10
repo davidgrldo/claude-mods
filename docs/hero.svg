@@ -85,8 +85,6 @@
 .lz-run{fill:#1F3558}.lz-runt{fill:#B7D3F6}.lz-idle{fill:#3A3A3A}.lz-idlet{fill:#FFFFFF}
 .lv-hi{fill:#EB6834}.lv-bad{fill:#FF7A78}.seg{fill:#282828}}
 
-@keyframes sh0_m{0%{transform:translateX(-30px)}100%{transform:translateX(43px)}}
-@keyframes sht_m{0%{transform:translateX(-36px)}100%{transform:translateX(343px)}}
 @keyframes rl_m{0%{transform:translateX(-160px)}100%{transform:translateX(572px)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
 <defs>
@@ -117,8 +115,7 @@
   <text class="pc" x="362" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">46%</text>
   <rect class="trk" x="268" y="33" width="94" height="6" rx="3"/>
   <rect x="268" y="33" width="43" height="6" rx="3" fill="url(#gOk_m)"/>
-  <clipPath id="cl0_m"><rect x="268" y="33" width="43" height="6" rx="3"/></clipPath>
-<g clip-path="url(#cl0_m)"><rect x="268" y="33" width="30" height="6" fill="url(#gSheen_m)" style="animation:sh0_m 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="tick" x="324" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="348" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <rect class="tick" x="324" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="348" y="32" width="1" height="8" rx=".5" opacity=".55"/>
   <text class="mu" x="268" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">460k of 1.0M</text>
 </g>
 <g>
@@ -143,8 +140,7 @@
   <text class="pc" x="586" y="76" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">3/5  ·  60%</text>
   <rect class="trk" x="14" y="82" width="572" height="8" rx="4"/>
   <rect x="14" y="82" width="343" height="8" rx="4" fill="url(#gOk_m)"/>
-  <clipPath id="clt_m"><rect x="14" y="82" width="343" height="8" rx="4"/></clipPath>
-<g clip-path="url(#clt_m)"><rect x="14" y="82" width="36" height="8" fill="url(#gSheen_m)" style="animation:sht_m 1.6s cubic-bezier(.65,0,.35,1) infinite;animation-delay:-0.00s"/></g><rect class="seg" x="127" y="82" width="2" height="8"/><rect class="seg" x="242" y="82" width="2" height="8"/><rect class="seg" x="356" y="82" width="2" height="8"/><rect class="seg" x="471" y="82" width="2" height="8"/>
+  <rect class="seg" x="127" y="82" width="2" height="8"/><rect class="seg" x="242" y="82" width="2" height="8"/><rect class="seg" x="356" y="82" width="2" height="8"/><rect class="seg" x="471" y="82" width="2" height="8"/>
 </g>
 
 
