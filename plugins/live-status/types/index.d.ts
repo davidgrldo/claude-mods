@@ -49,7 +49,8 @@ export type Run = {
 export type Panel = { isCompact: boolean; isDoneCollapsed: boolean }
 
 // RTK's token-savings summary (`rtk gain`), when RTK is installed.
-export type Rtk = { saved: number; input: number; output: number; commands: number; pct: number }
+export type RtkScope = { saved: number; input: number; output: number; commands: number; pct: number }
+export type Rtk = RtkScope & { project: RtkScope | null }
 
 // One Claude Code session on this machine, from its entry in ~/.claude/sessions.
 export type SessionRow = {

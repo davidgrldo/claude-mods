@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.1
+- RTK per project: the band gauge shows the savings of the folder you work in (`rtk gain --project`), and the panel lists this project and all projects separately.
+
 ## 0.5.0
 - RTK monitoring when RTK is installed: a green `RTK SAVED` gauge in the band and a token-savings section in the panel, read from `rtk gain` every 60 s. Not installed: nothing shown.
 

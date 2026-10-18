@@ -260,7 +260,7 @@ still('monitor.svg', {
     gauge('CONTEXT', 42, '420k of 1.0M', true),
     gauge('5H', 68, 'resets in 2h10m'),
     gauge('7D', 91, 'resets in 4d3h'),
-    { label: 'RTK SAVED', pct: 40, caption: '16.4K saved · 127', sheen: false, good: true },
+    { label: 'RTK PROJECT', pct: 65, caption: '572 saved · 8', sheen: false, good: true },
   ],
   task: null,
 })

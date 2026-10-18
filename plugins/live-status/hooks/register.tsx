@@ -1,7 +1,7 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
-import type { Crew, Limit, Panel, Rtk, Run, SessionRow, Task, Turn, Usage } from '../types'
+import type { Crew, Limit, Panel, Rtk, RtkScope, Run, SessionRow, Task, Turn, Usage } from '../types'
 
 const NO_USAGE: Usage = { ctxPercent: null, ctxTokens: null, ctxWindow: 0, limits: [], costUsd: null }
 const NO_TURN: Turn = { isRunning: false, startedAt: 0, steps: 0, tools: 0, lastSeconds: 0, agents: 0 }
@@ -464,17 +464,42 @@ const lastSegment = (p: string): string => p.split(/[\\/]/).filter(Boolean).pop(
 // `rtk gain -f json` is a local read of its own history: no network, no tokens.
 const fmtSaved = (n: number): string => (n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}K` : `${Math.round(n)}`)
 
-async function readRtk($: EngineInterface): Promise<Rtk | null> {
+const parseRtk = (stdout: string): RtkScope | null => {
   try {
-    const r = await $.process.run(['rtk', 'gain', '-f', 'json'], { timeoutMs: 8000 })
-    if (r.exitCode !== 0) return null
-    const sum = (JSON.parse(r.stdout) as { summary?: Record<string, unknown> }).summary
+    const sum = (JSON.parse(stdout) as { summary?: Record<string, unknown> }).summary
     if (!sum) return null
     const saved = Number(sum.total_saved ?? 0)
     const input = Number(sum.total_input ?? 0)
-    const output = Number(sum.total_output ?? 0)
     const pct = Number(sum.avg_savings_pct ?? (input > 0 ? (saved / input) * 100 : 0))
-    return { saved, input, output, commands: Number(sum.total_commands ?? 0), pct: Math.max(0, Math.min(100, pct)) }
+    return {
+      saved,
+      input,
+      output: Number(sum.total_output ?? 0),
+      commands: Number(sum.total_commands ?? 0),
+      pct: Math.max(0, Math.min(100, pct)),
+    }
+  } catch {
+    return null
+  }
+}
+
+// Global savings, plus the savings of the session's own folder (`rtk gain --project`,
+// run in the session's working directory) when RTK has recorded commands there.
+async function readRtk($: EngineInterface): Promise<Rtk | null> {
+  try {
+    const all = await $.process.run(['rtk', 'gain', '-f', 'json'], { timeoutMs: 8000 })
+    if (all.exitCode !== 0) return null
+    const global = parseRtk(all.stdout)
+    if (!global) return null
+    let project: RtkScope | null = null
+    try {
+      const mine = await $.process.run(['rtk', 'gain', '--project', '-f', 'json'], { timeoutMs: 8000 })
+      const parsed = mine.exitCode === 0 ? parseRtk(mine.stdout) : null
+      project = parsed && parsed.commands > 0 ? parsed : null
+    } catch {
+      // No per-project reading: the global one still shows.
+    }
+    return { ...global, project }
   } catch {
     return null
   }
@@ -974,10 +999,18 @@ export const register: Register = on => {
             height={46}
           />
           {toggleCompact}
+          {rtkInfo?.project && !p.isCompact && (
+            <Svg
+              source={sectionSvg(W, 'RTK · THIS PROJECT', `${fmtSaved(rtkInfo.project.saved)} saved · ${rtkInfo.project.commands} commands · ${Math.round(rtkInfo.project.pct)}%`, rtkInfo.project.pct, true)}
+              alt={`RTK in this project: ${fmtSaved(rtkInfo.project.saved)} tokens saved over ${rtkInfo.project.commands} commands, ${Math.round(rtkInfo.project.pct)} percent`}
+              width={W}
+              height={38}
+            />
+          )}
           {rtkInfo && !p.isCompact && (
             <Svg
-              source={sectionSvg(W, 'RTK · TOKENS SAVED', `${fmtSaved(rtkInfo.saved)} saved · ${rtkInfo.commands} commands · ${Math.round(rtkInfo.pct)}%`, rtkInfo.pct, true)}
-              alt={`RTK has saved ${fmtSaved(rtkInfo.saved)} tokens over ${rtkInfo.commands} commands, ${Math.round(rtkInfo.pct)} percent`}
+              source={sectionSvg(W, 'RTK · ALL PROJECTS', `${fmtSaved(rtkInfo.saved)} saved · ${rtkInfo.commands} commands · ${Math.round(rtkInfo.pct)}%`, rtkInfo.pct, true)}
+              alt={`RTK overall: ${fmtSaved(rtkInfo.saved)} tokens saved over ${rtkInfo.commands} commands, ${Math.round(rtkInfo.pct)} percent`}
               width={W}
               height={38}
             />
@@ -1090,6 +1123,7 @@ export const register: Register = on => {
     const { Box, Text, Button } = ui
     const u = await read($, usage)
     const rtkInfo = await read($, rtk)
+    const rtkView = rtkInfo ? (rtkInfo.project ?? rtkInfo) : null
     const t = await read($, turn)
     const at = (await read($, now)) || (await $.clock.now())
     const m = await read($, model)
@@ -1155,8 +1189,8 @@ export const register: Register = on => {
             sheen: false,
           }),
         ),
-        ...(rtkInfo
-          ? [{ label: 'RTK SAVED', pct: Math.round(rtkInfo.pct), caption: `${fmtSaved(rtkInfo.saved)} saved · ${rtkInfo.commands}`, sheen: false, good: true } as Gauge]
+        ...(rtkView
+          ? [{ label: rtkInfo?.project ? 'RTK PROJECT' : 'RTK SAVED', pct: Math.round(rtkView.pct), caption: `${fmtSaved(rtkView.saved)} saved · ${rtkView.commands}`, sheen: false, good: true } as Gauge]
           : []),
       ]
       const { svg, H } = cardSvg({
@@ -1231,12 +1265,12 @@ export const register: Register = on => {
           <Text color={t.isRunning ? AMBER : undefined} dimColor={!t.isRunning}>
             {status}
           </Text>
-          {rtkInfo ? (
+          {rtkView ? (
             <Text>
-              <Text dimColor>rtk </Text>
-              <Text color={GREEN}>{bar(rtkInfo.pct, w)}</Text>
-              <Text bold> {Math.round(rtkInfo.pct)}%</Text>
-              <Text dimColor> {fmtSaved(rtkInfo.saved)} saved</Text>
+              <Text dimColor>{rtkInfo?.project ? 'rtk project ' : 'rtk '}</Text>
+              <Text color={GREEN}>{bar(rtkView.pct, w)}</Text>
+              <Text bold> {Math.round(rtkView.pct)}%</Text>
+              <Text dimColor> {fmtSaved(rtkView.saved)} saved</Text>
             </Text>
           ) : null}
         </Box>
