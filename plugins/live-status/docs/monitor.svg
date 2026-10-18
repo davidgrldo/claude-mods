@@ -30,36 +30,44 @@
   <text class="nm" x="34" y="29" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="13" font-weight="650">Opus 5.5</text>
   <rect class="chip" x="97" y="17" width="45" height="17" rx="8.5"/>
   <text class="chipt" x="119.5" y="29" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">HIGH</text>
-  <text class="mu" x="303" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
+  <text class="mu" x="242" y="29" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11" font-weight="600" font-variant-numeric="tabular-nums">$1.23</text>
   <rect class="lz-run" x="34" y="40" width="67" height="17" rx="8.5"/>
   <text class="lz-runt" x="67.5" y="52" text-anchor="middle" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".6">WORKING</text>
   
-  <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:42 · 5 steps · 7 tools · 2 agents</text>
+  <text class="mu" x="109" y="53" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="11">0:42 · 5 steps · 7 tools…</text>
 </g>
 
 <g>
-  <text class="mu" x="325" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
-  <text class="pc" x="453" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">42%</text>
-  <rect class="trk" x="325" y="33" width="128" height="6" rx="3"/>
-  <rect x="325" y="33" width="54" height="6" rx="3" fill="url(#gOk)"/>
-  <rect class="tick" x="402" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="434" y="32" width="1" height="8" rx=".5" opacity=".55"/>
-  <text class="mu" x="325" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">420k of 1.0M</text>
+  <text class="mu" x="264" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">CONTEXT</text>
+  <text class="pc" x="371" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">42%</text>
+  <rect class="trk" x="264" y="33" width="107" height="6" rx="3"/>
+  <rect x="264" y="33" width="45" height="6" rx="3" fill="url(#gOk)"/>
+  <rect class="tick" x="328" y="32" width="1" height="8" rx=".5" opacity=".55"/><rect class="tick" x="355" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="264" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">420k of 1.0M</text>
 </g>
 <g>
-  <text class="mu" x="471" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H<tspan class="lv-hi" dx="5">HIGH</tspan></text>
-  <text class="pc" x="599" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">68%</text>
-  <rect class="trk" x="471" y="33" width="128" height="6" rx="3"/>
-  <rect x="471" y="33" width="87" height="6" rx="3" fill="url(#gWarn)"/>
-  <rect class="tick" x="580" y="32" width="1" height="8" rx=".5" opacity=".55"/>
-  <text class="mu" x="471" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
+  <text class="mu" x="389" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">5H<tspan class="lv-hi" dx="5">HIGH</tspan></text>
+  <text class="pc" x="496" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">68%</text>
+  <rect class="trk" x="389" y="33" width="107" height="6" rx="3"/>
+  <rect x="389" y="33" width="73" height="6" rx="3" fill="url(#gWarn)"/>
+  <rect class="tick" x="480" y="32" width="1" height="8" rx=".5" opacity=".55"/>
+  <text class="mu" x="389" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 2h10m</text>
 </g>
 <g>
-  <text class="mu" x="617" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D<tspan class="lv-bad" dx="5">CRITICAL</tspan></text>
-  <text class="pc" x="745" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">91%</text>
-  <rect class="trk" x="617" y="33" width="128" height="6" rx="3"/>
-  <rect x="617" y="33" width="116" height="6" rx="3" fill="url(#gBad)"/>
+  <text class="mu" x="514" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">7D<tspan class="lv-bad" dx="5">CRIT</tspan></text>
+  <text class="pc" x="621" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">91%</text>
+  <rect class="trk" x="514" y="33" width="107" height="6" rx="3"/>
+  <rect x="514" y="33" width="97" height="6" rx="3" fill="url(#gBad)"/>
   
-  <text class="mu" x="617" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+  <text class="mu" x="514" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">resets in 4d3h</text>
+</g>
+<g>
+  <text class="mu" x="639" y="27" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="9.5" font-weight="700" letter-spacing=".9">RTK SAVED</text>
+  <text class="pc" x="746" y="27" text-anchor="end" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">40%</text>
+  <rect class="trk" x="639" y="33" width="107" height="6" rx="3"/>
+  <rect x="639" y="33" width="43" height="6" rx="3" fill="url(#gDone)"/>
+  
+  <text class="mu" x="639" y="55" font-family="Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="10" font-variant-numeric="tabular-nums">16.4K saved · 127</text>
 </g>
 
 

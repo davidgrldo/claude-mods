@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.0
+- RTK monitoring when RTK is installed: a green `RTK SAVED` gauge in the band and a token-savings section in the panel, read from `rtk gain` every 60 s. Not installed: nothing shown.
+
 ## 0.4.1
 - Zero tokens: removed the `task` tool the mod used to register (its definition rode along on every request). Task progress now reads the todo list Claude already keeps (`TodoWrite`), observed without changing the call.
 

@@ -1,7 +1,7 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
-import type { Crew, Limit, Panel, Run, SessionRow, Task, Turn, Usage } from '../types'
+import type { Crew, Limit, Panel, Rtk, Run, SessionRow, Task, Turn, Usage } from '../types'
 
 const NO_USAGE: Usage = { ctxPercent: null, ctxTokens: null, ctxWindow: 0, limits: [], costUsd: null }
 const NO_TURN: Turn = { isRunning: false, startedAt: 0, steps: 0, tools: 0, lastSeconds: 0, agents: 0 }
@@ -13,6 +13,7 @@ const turn = atom({ plugin: 'live-status', key: 'turn' } as const, NO_TURN)
 const task = atom({ plugin: 'live-status', key: 'task' } as const, null)
 const crew = atom({ plugin: 'live-status', key: 'crew' } as const, { spawned: 0, done: 0 })
 const runs = atom({ plugin: 'live-status', key: 'runs' } as const, [])
+const rtk = atom({ plugin: 'live-status', key: 'rtk' } as const, null)
 const sessions = atom({ plugin: 'live-status', key: 'sessions' } as const, [])
 const panel = atom({ plugin: 'live-status', key: 'panel' } as const, { isCompact: false, isDoneCollapsed: true })
 const now = atom({ plugin: 'live-status', key: 'now' } as const, 0)
@@ -143,7 +144,7 @@ const BAND_SHEEN = false
 
 type AgentRow = { name: string; status: 'running' | 'done' | 'failed'; ctx: number }
 
-type Gauge = { label: string; pct: number | null; caption: string; sheen: boolean }
+type Gauge = { label: string; pct: number | null; caption: string; sheen: boolean; good?: boolean }
 
 const gradFor = (pct: number | null): string => (pct === null ? 'gNone' : pct >= 85 ? 'gBad' : pct >= 60 ? 'gWarn' : 'gOk')
 
@@ -182,7 +183,8 @@ function cardSvg(args: {
   const taskH = tv ? 32 : 0
   const agentH = ag.rows.length ? 24 + ag.rows.length * 22 : 0
   const H = baseH + taskH + agentH
-  const leftW = stack ? W - PAD * 2 : Math.max(232, Math.min(330, Math.round(W * 0.38)))
+  // With a fourth gauge (RTK) the left block gives up some room.
+  const leftW = stack ? W - PAD * 2 : gauges.length > 3 ? Math.max(200, Math.min(290, Math.round(W * 0.3))) : Math.max(232, Math.min(330, Math.round(W * 0.38)))
   const gx0 = stack ? PAD : PAD + leftW + 22
   const gy0 = stack ? 58 : 17
   const gAreaW = stack ? W - PAD * 2 : W - gx0 - PAD
@@ -222,11 +224,11 @@ function cardSvg(args: {
     const y = gy0
     const pct = g.pct === null ? 0 : Math.max(0, Math.min(100, g.pct))
     // Level is never colour alone: the word comes with it.
-    const lvl = g.pct === null ? '' : pct >= 85 ? 'CRITICAL' : pct >= 60 ? 'HIGH' : ''
+    const lvl = g.pct === null || g.good ? '' : pct >= 85 ? (gw < 112 ? 'CRIT' : 'CRITICAL') : pct >= 60 ? 'HIGH' : ''
     const fillW = g.pct === null ? 0 : Math.max(pct > 0 ? 6 : 0, Math.round((gw * pct) / 100))
     const ticks = [60, 85]
       .map(t => ({ t, tx: x + Math.round((gw * t) / 100) }))
-      .filter(({ tx }) => tx > x + fillW + 3)
+      .filter(({ tx }) => !g.good && tx > x + fillW + 3)
       .map(({ tx }) => `<rect class="tick" x="${tx}" y="${y + 15}" width="1" height="8" rx=".5" opacity=".55"/>`)
       .join('')
     let sheen = ''
@@ -240,7 +242,7 @@ function cardSvg(args: {
   <text class="mu" x="${x}" y="${y + 10}" font-family="${FONT}" font-size="9.5" font-weight="700" letter-spacing=".9">${xml(g.label)}${lvl ? `<tspan class="${pct >= 85 ? 'lv-bad' : 'lv-hi'}" dx="5">${lvl}</tspan>` : ''}</text>
   <text class="pc" x="${x + gw}" y="${y + 10}" text-anchor="end" font-family="${FONT}" font-size="12" font-weight="700" font-variant-numeric="tabular-nums">${g.pct === null ? '—' : Math.round(g.pct) + '%'}</text>
   <rect class="trk" x="${x}" y="${y + 16}" width="${gw}" height="6" rx="3"/>
-  ${fillW ? `<rect x="${x}" y="${y + 16}" width="${fillW}" height="6" rx="3" fill="url(#${gradFor(g.pct)})"/>` : ''}
+  ${fillW ? `<rect x="${x}" y="${y + 16}" width="${fillW}" height="6" rx="3" fill="url(#${g.good ? 'gDone' : gradFor(g.pct)})"/>` : ''}
   ${sheen}${ticks}
   <text class="mu" x="${x}" y="${y + 38}" font-family="${FONT}" font-size="10" font-variant-numeric="tabular-nums">${xml(fitText(g.caption, 10, gw))}</text>
 </g>`
@@ -457,6 +459,26 @@ const needsYou = (s: SessionRow, at: number): boolean => s.status === 'idle' && 
 const isShown = (s: SessionRow, at: number): boolean => s.isSelf || s.status === 'busy' || at - s.updatedAt <= ATTENTION_MS
 
 const lastSegment = (p: string): string => p.split(/[\\/]/).filter(Boolean).pop() || p
+
+// RTK (a CLI that condenses command output to save tokens), when it is installed.
+// `rtk gain -f json` is a local read of its own history: no network, no tokens.
+const fmtSaved = (n: number): string => (n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}K` : `${Math.round(n)}`)
+
+async function readRtk($: EngineInterface): Promise<Rtk | null> {
+  try {
+    const r = await $.process.run(['rtk', 'gain', '-f', 'json'], { timeoutMs: 8000 })
+    if (r.exitCode !== 0) return null
+    const sum = (JSON.parse(r.stdout) as { summary?: Record<string, unknown> }).summary
+    if (!sum) return null
+    const saved = Number(sum.total_saved ?? 0)
+    const input = Number(sum.total_input ?? 0)
+    const output = Number(sum.total_output ?? 0)
+    const pct = Number(sum.avg_savings_pct ?? (input > 0 ? (saved / input) * 100 : 0))
+    return { saved, input, output, commands: Number(sum.total_commands ?? 0), pct: Math.max(0, Math.min(100, pct)) }
+  } catch {
+    return null
+  }
+}
 
 async function homeDir($: EngineInterface): Promise<string> {
   return ((await $.env.get('USERPROFILE')) || (await $.env.get('HOME')) || '').replace(/\\/g, '/')
@@ -681,6 +703,12 @@ export const register: Register = on => {
     let ticks = 0
     let lastSessionSig = ''
     let othersBusy = false
+    // RTK: detected once; if it is not there nothing is drawn and nothing polls again.
+    let rtkOn = false
+    let rtkAt = 0
+    const first = await readRtk($)
+    rtkOn = first !== null
+    await update($, rtk, () => first)
     // First read right away, so the panel is not empty for the first seconds.
     const firstRows = await readSessions($)
     lastSessionSig = sessionSig(firstRows)
@@ -691,6 +719,11 @@ export const register: Register = on => {
       void (async () => {
         ticks += 1
         const t = await read($, turn)
+        if (rtkOn && ticks - rtkAt >= 60) {
+          rtkAt = ticks
+          const fresh = await readRtk($)
+          if (fresh) await update($, rtk, () => fresh)
+        }
         // Cheap by design. Other sessions: polled every 5 s while something moves (a turn
         // here, or a working session elsewhere), every 15 s otherwise, and only files
         // that changed are read. The panel redraws on that slow clock. Usage is
@@ -893,6 +926,7 @@ export const register: Register = on => {
     const at = nowMs
     const running = list.filter(r => r.status === 'running').reverse()
     const finished = list.filter(r => r.status !== 'running').reverse()
+    const rtkInfo = await read($, rtk)
     const everySession = await read($, sessions)
     const own = taskView(await read($, task), await read($, crew))
     const sessionList = everySession
@@ -940,6 +974,14 @@ export const register: Register = on => {
             height={46}
           />
           {toggleCompact}
+          {rtkInfo && !p.isCompact && (
+            <Svg
+              source={sectionSvg(W, 'RTK · TOKENS SAVED', `${fmtSaved(rtkInfo.saved)} saved · ${rtkInfo.commands} commands · ${Math.round(rtkInfo.pct)}%`, rtkInfo.pct, true)}
+              alt={`RTK has saved ${fmtSaved(rtkInfo.saved)} tokens over ${rtkInfo.commands} commands, ${Math.round(rtkInfo.pct)} percent`}
+              width={W}
+              height={38}
+            />
+          )}
           {!p.isCompact && (
             <Svg
               source={sectionSvg(W, 'SESSIONS', `${sessionsWorking} working${sessionsNeed ? ` · ${sessionsNeed} need you` : ''}${sessionsHidden ? ` · ${sessionsHidden} idle hidden` : ''}`, sessionList.length ? (sessionsWorking / sessionList.length) * 100 : null)}
@@ -1047,6 +1089,7 @@ export const register: Register = on => {
     const ui = $.ui.resolve(e)
     const { Box, Text, Button } = ui
     const u = await read($, usage)
+    const rtkInfo = await read($, rtk)
     const t = await read($, turn)
     const at = (await read($, now)) || (await $.clock.now())
     const m = await read($, model)
@@ -1112,6 +1155,9 @@ export const register: Register = on => {
             sheen: false,
           }),
         ),
+        ...(rtkInfo
+          ? [{ label: 'RTK SAVED', pct: Math.round(rtkInfo.pct), caption: `${fmtSaved(rtkInfo.saved)} saved · ${rtkInfo.commands}`, sheen: false, good: true } as Gauge]
+          : []),
       ]
       const { svg, H } = cardSvg({
         W,
@@ -1185,6 +1231,14 @@ export const register: Register = on => {
           <Text color={t.isRunning ? AMBER : undefined} dimColor={!t.isRunning}>
             {status}
           </Text>
+          {rtkInfo ? (
+            <Text>
+              <Text dimColor>rtk </Text>
+              <Text color={GREEN}>{bar(rtkInfo.pct, w)}</Text>
+              <Text bold> {Math.round(rtkInfo.pct)}%</Text>
+              <Text dimColor> {fmtSaved(rtkInfo.saved)} saved</Text>
+            </Text>
+          ) : null}
         </Box>
         {tv ? (
           <Box flexDirection="row" gap={2}>

@@ -256,7 +256,12 @@ still('monitor.svg', {
   W: 760,
   state: 'Working',
   detail: '0:42 · 5 steps · 7 tools · 2 agents',
-  gauges: [gauge('CONTEXT', 42, '420k of 1.0M', true), gauge('5H', 68, 'resets in 2h10m'), gauge('7D', 91, 'resets in 4d3h')],
+  gauges: [
+    gauge('CONTEXT', 42, '420k of 1.0M', true),
+    gauge('5H', 68, 'resets in 2h10m'),
+    gauge('7D', 91, 'resets in 4d3h'),
+    { label: 'RTK SAVED', pct: 40, caption: '16.4K saved · 127', sheen: false, good: true },
+  ],
   task: null,
 })
 still('monitor-idle.svg', {

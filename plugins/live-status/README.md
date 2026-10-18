@@ -59,6 +59,7 @@ To remove it: `/plugin uninstall live-status`.
 | **Status** | `WORKING` / `IDLE`, elapsed time, steps, tool calls, running agents | Every second while a turn runs |
 | **Task bar** | Progress of the task being worked on, `3/5 · 60%`, segmented per step | When the task is reported (see below) |
 | **Agents** | One row per subagent, inline when there is no room for the panel | Live |
+| **RTK** | Token savings from [RTK](https://github.com/rtk-ai/rtk), only when it is installed: a green `RTK SAVED` gauge (average saving, tokens saved, commands) and a section in the panel | Re-read every 60 s from `rtk gain` |
 | **Agents panel** | Summary tiles plus a card per subagent: status, type, model, effort, time, tokens, steps, context bar | Live |
 | **Sessions** | Every Claude Code session on the machine, with name, folder, where it runs (desktop / cli), `WORKING` or `IDLE` and when it last changed; this one is marked `THIS`. The band shows `3 sessions · 2 working` | Re-read every 3 s, redrawn only when something changed |
 
@@ -99,6 +100,13 @@ Nothing can know in advance how big a task is, so the task bar reads the **todo 
 `TodoWrite` tool): `3/5 · 60%` is "3 of the 5 todos are completed", and the step in progress is shown next to it. There is
 nothing to set up and no `CLAUDE.md` snippet to add. If Claude keeps no todo list, the bar falls back to **subagents finished
 out of subagents started**, and with neither the row stays hidden and the card stays compact.
+
+## RTK
+
+If [RTK](https://github.com/rtk-ai/rtk) is on your PATH, the monitor shows what it has saved you: a green **RTK SAVED** gauge in the band
+(`40%` average saving, `16.4K saved · 127` commands) and an **RTK · TOKENS SAVED** section at the top of the side panel. It runs
+`rtk gain -f json` once at start and then every 60 seconds. That is a local read of RTK's own history: no network, no tokens.
+If RTK is not installed, nothing is drawn and nothing polls again.
 
 ## No tokens
 
